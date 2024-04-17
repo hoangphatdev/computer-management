@@ -25,7 +25,7 @@ public class ProductController implements MouseListener , KeyListener{
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		if(e.getSource() == productView.addLbl) {
-			ProductView pv = new ProductView();
+			productView.clickAddLbl();
 		}else if(e.getSource() == productView.deleteLbl) {
 		    productView.clickDeleteLbl();
 		}else if(e.getSource() == productView.editLbl) {
