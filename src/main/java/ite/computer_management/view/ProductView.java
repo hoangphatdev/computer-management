@@ -118,9 +118,13 @@ public class ProductView extends JPanel {
 		add(excelBtn);
 		
 	}
+	public void clickAddLbl() {
+		new AddProductView();
+	}
 	public void clickDeleteLbl() {
 		
 		int selectedRow = table.getSelectedRow();
+		String computerName = model.getValueAt(selectedRow,0).toString();
 		String computerCode =  model.getValueAt(selectedRow, 1).toString(); // index cua gelValuAt bat dau tu 0
 		Product deleteProduct = new Product();
 		deleteProduct.setComputerCode(computerCode);
