@@ -12,12 +12,12 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 import ite.computer_management.database.ConnectDatabase;
-import ite.computer_management.model.Product;
+import ite.computer_management.model.Computer;
 import ite.computer_management.view.ProductView;
 
 
 
-public class ProductDAO implements DAOInterface<Product> {
+public class ProductDAO implements DAOInterface<Computer> {
 	private ProductView productView;
 	public ProductDAO() {};
 	public ProductDAO(ProductView productView) {
@@ -28,25 +28,27 @@ public class ProductDAO implements DAOInterface<Product> {
 	}
 
 	@Override
-	public int insert(Product t) {
+	public int insert(Computer com) {
 		int check = 0;
 		Connection connect = ConnectDatabase.getInstance().getConnection();
 		try {
-			String sql = "INSERT INTO computer_management.product(computer_name, computer_code, brand, price, cpu, ram, vga, screen_size, weight, computer_type,origin, quantity) VALUE"
-					+ "(?,?,?,?,?,?,?,?,?,?,?)";
+			String sql = "INSERT INTO computer_management.computer(computer_Code, computer_Name, quantity, cpu_Name, ram, screen_Card, price, source_Capacity, "
+					+ "machine_Type, rom, screen_Size, battery_Capacity, origin)" + " VALUE"		
+					+ "(?,?,?,?,?,?,?,?,?,?,?,?,?)";
 			PreparedStatement ps = connect.prepareStatement(sql);
-			ps.setString(1, t.getComputerName());
-			ps.setString(2, t.getComputerCode());
-			ps.setString(3, t.getBrand());
-			ps.setDouble(4, t.getPrice());
-			ps.setString(5, t.getCpu());
-			ps.setInt(6, t.getRam());
-			ps.setString(7, t.getVga());
-			ps.setDouble(8, t.getScreenSize());
-			ps.setDouble(9, t.getWeight());
-			ps.setString(10, t.getComputerType());
-			ps.setString(11, t.getOrigin());
-			ps.setInt(12, t.getQuantity());
+			ps.setString(1, com.getComputerName());    // setString--> first Parameter is 1
+			ps.setString(2, com.getComputerCode());
+			ps.setInt(3, com.getQuantity());
+			ps.setString(4, com.getCpuName());
+			ps.setString(5, com.getRam());
+			ps.setString(6, com.getScreenCard());
+			ps.setDouble(7, com.getPrice());
+			ps.setString(8, com.getSourceCapacity());
+			ps.setString(9, com.getMachineType());
+			ps.setString(10, com.getRom());
+			ps.setDouble(11, com.getScreenSize());
+			ps.setString(12, com.getBatteryCapacity());
+			ps.setString(13, com.getOrigin());
 			
 			check = ps.executeUpdate();	
 			connect.close();
@@ -61,10 +63,10 @@ public class ProductDAO implements DAOInterface<Product> {
 	}
 
 	@Override
-	public int delete(Product t) {
+	public int delete(Computer t) {
 		int check = 0;
 		Connection connect = ConnectDatabase.getInstance().getConnection();
-		String sql = "DELETE FROM computer_management.product WHERE computer_code=?";
+		String sql = "DELETE FROM computer_management.computer WHERE computer_code=?";
 		try {
 			PreparedStatement ps = connect.prepareStatement(sql);
 			ps.setString(1, t.getComputerCode());
@@ -81,26 +83,27 @@ public class ProductDAO implements DAOInterface<Product> {
 	}
 
 	@Override
-	public int update(Product t, String condition) {
+	public int update(Computer com, String condition) {
 		int check = 0;
 		Connection connect = ConnectDatabase.getInstance().getConnection();
-		String sql = "UPDATE computer_management.product SET computer_name=?, computer_code=?, brand=?, price=?, cpu=?, ram=?, vga=?, screen_size=?, weight=?, computer_type=?,origin=?, quantity=?"
-				+ "WHERE id=?";
+		String sql = "UPDATE computer_management.computer SET computer_Code=?, computer_Name=?, quantity=?, cpu_Name=?, ram=?, screen_Card=?, price=?,"
+				+ "source_Capacity=?, machine_Type=?, rom=?, screen_Size=?, battery_Capacity=?, origin=?" + " WHERE computer_Code=?";
 		try {
 			PreparedStatement ps = connect.prepareStatement(sql);
-			ps.setString(1, t.getComputerName());
-			ps.setString(2, t.getComputerCode());
-			ps.setString(3, t.getBrand());
-			ps.setDouble(4, t.getPrice());
-			ps.setString(5, t.getCpu());
-			ps.setInt(6, t.getRam());
-			ps.setString(7, t.getVga());
-			ps.setDouble(8, t.getScreenSize());
-			ps.setDouble(9, t.getWeight());
-			ps.setString(10, t.getComputerType());
-			ps.setString(11, t.getOrigin());
-			ps.setInt(12, t.getQuantity());
-			ps.setString(13, condition);
+			ps.setString(1, com.getComputerCode());
+			ps.setString(2, com.getComputerName());
+			ps.setInt(3, com.getQuantity());
+			ps.setString(4, com.getCpuName());
+			ps.setString(5, com.getRam());
+			ps.setString(6, com.getScreenCard());
+			ps.setDouble(7, com.getPrice());
+			ps.setString(8, com.getSourceCapacity());
+			ps.setString(9, com.getMachineType());
+			ps.setString(10, com.getRom());
+			ps.setDouble(11, com.getScreenSize());
+			ps.setString(12, com.getBatteryCapacity());
+			ps.setString(13, com.getOrigin());
+			ps.setString(14, condition);
 			check = ps.executeUpdate();
 			connect.close();
 			JOptionPane.showMessageDialog(null, "Edit successfully ><");
@@ -113,43 +116,45 @@ public class ProductDAO implements DAOInterface<Product> {
 	}
 
 	@Override
-	public ArrayList<Product> selectAll() {
+	public ArrayList<Computer> selectAll() {
 		Connection connect = ConnectDatabase.getInstance().getConnection();
 		
 		try {
 			Statement st = connect.createStatement();
-			String sql = "SELECT * FROM computer_management.product";
+			String sql = "SELECT * FROM computer_management.computer";
 			ResultSet rs = st.executeQuery(sql);
 			ResultSetMetaData rsmd = rs.getMetaData();
 		
 			int cols = rsmd.getColumnCount();
 //			String[] colName = new String[cols];
-			String[] colName = {"computerName", "computerCode", "brand", "price", "cpu", "ram", "vga", "screenSize", "weight", "computerType","origin", "quantity"};
+			String[] colName = {"Computer Code", "Computer Name" , "Quantity" , "CPU" ,"RAM", "Screen Card" , "Price" ,"Source Capacity" , "Machine Type",
+									 "ROM" , "Screen Size" ,"Battery Capacity" ,"Origin"}; 
 //			for(int i=0; i<cols; i++) {
 //				colName[i] = rsmd.getColumnClassName(i+1); //thu tu cot bat dau tu 1
 //			}
 			productView.model.setColumnIdentifiers(colName);
-			String computerName, computerCode, brand, cpu, vga, computerType, origin;
-			int quantity, ram;
-			Double price, screen_size, weight;
+			String computerName, computerCode, cpu, screenCard, machineType, origin, ram, sourceCapacity, rom, batteryCapacity;
+			int quantity;
+			Double price, screenSize;
 			while(rs.next()) {
+				computerCode = rs.getString(1);  // FIRST PARAMETER: 1	
 				computerName = rs.getString(2);
-				computerCode = rs.getString(3);
-				brand = rs.getString(4);
-				price = rs.getDouble(5);
-				cpu = rs.getString(6);
-				ram = rs.getInt(7);
-				vga = rs.getString(8);
-				screen_size = rs.getDouble(9);
-				weight = rs.getDouble(10);
-				computerType = rs.getString(11);
-				origin = rs.getString(12);
-				quantity = rs.getInt(13);
-				String[] row = { computerName, computerCode, brand, String.valueOf(price), cpu, String.valueOf(ram), vga, String.valueOf(screen_size), String.valueOf(weight), computerType, origin, String.valueOf(quantity)};
+				quantity = rs.getInt(3);
+				cpu = rs.getString(4);
+				ram = rs.getString(5);
+				screenCard = rs.getString(6);
+				price = rs.getDouble(7);
+				sourceCapacity = rs.getString(8);
+				machineType = rs.getString(9);
+				rom = rs.getString(10);
+				screenSize = rs.getDouble(11);
+				batteryCapacity = rs.getString(12);
+				origin = rs.getString(13);
+				String[] row = { computerCode, computerName, String.valueOf(quantity), cpu, ram, screenCard, String.valueOf(price), sourceCapacity, machineType,
+						rom, String.valueOf(screenSize), batteryCapacity, origin};
 				productView.model.addRow(row);
 			}
 			connect.close();
-			
 		} catch (SQLException e) {
 			JOptionPane.showMessageDialog(null, e);
 		}
@@ -157,18 +162,18 @@ public class ProductDAO implements DAOInterface<Product> {
 	}
 
 	@Override
-	public Product selectById(Product t) {
+	public Computer selectById(Computer t) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public ArrayList<Product> selectByCondition(String condition) {
+	public ArrayList<Computer> selectByCondition(String condition) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 	@Override
-	public int update(Product t) {
+	public int update(Computer t) {
 		// TODO Auto-generated method stub
 		return 0;
 	}

@@ -10,7 +10,7 @@ import javax.swing.border.EmptyBorder;
 import ite.computer_management.controller.AddProductController;
 import ite.computer_management.controller.ProductController;
 import ite.computer_management.dao.ProductDAO;
-import ite.computer_management.model.Product;
+import ite.computer_management.model.Computer;
 
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
@@ -23,19 +23,21 @@ public class AddProductView extends JFrame {
 	private JPanel contentPane;
 	private JTextField computerNameTxt;
 	private JTextField computerCodeTxt;
-	private JTextField brandTxt;
 	private JTextField cpuTxt;
 	private JTextField ramTxt;
-	private JTextField vgaTxt;
+	private JTextField screenCardTxt;
 	private JTextField screenSizeTxt;
 	private JTextField priceTxt;
 	private JTextField quantityTxt;
-	private JLabel computerTypeLbl;
-	private JTextField computerTypeTxt;
-	private JLabel weightLbl;
-	private JTextField weightTxt;
+	private JLabel machineTypeLbl;
+	private JTextField machineTypeTxt;
+	private JLabel batteryCapacityLbl;
+	private JTextField batteryCapacityTxt;
 	private JLabel originLbl;
 	private JTextField originTxt;
+	private JTextField sourceCapacityTxt;
+	private JTextField romTxt;
+	public JLabel refreshLbl;
 	public JLabel addLbl;
 	public JLabel cancelLbl;
 
@@ -73,7 +75,7 @@ public class AddProductView extends JFrame {
 		JLabel titleLbl = new JLabel("ADD COMPUTER");
 		titleLbl.setFont(new Font("Tahoma", Font.PLAIN, 21));
 		titleLbl.setHorizontalAlignment(SwingConstants.CENTER);
-		titleLbl.setBounds(0, 0, 1010, 139);
+		titleLbl.setBounds(0, 0, 1024, 139);
 		titleLbl.setBackground(Color.gray);
 		titleLbl.setOpaque(true);
 		contentPane.add(titleLbl);
@@ -89,15 +91,8 @@ public class AddProductView extends JFrame {
 		computerCodeLbl.setOpaque(true);
 		computerCodeLbl.setHorizontalAlignment(SwingConstants.CENTER);
 		computerCodeLbl.setBackground(Color.gray);
-		computerCodeLbl.setBounds(409, 159, 217, 41);
+		computerCodeLbl.setBounds(281, 162, 217, 41);
 		contentPane.add(computerCodeLbl);
-		
-		JLabel brandLbl = new JLabel("Brand");
-		brandLbl.setOpaque(true);
-		brandLbl.setHorizontalAlignment(SwingConstants.CENTER);
-		brandLbl.setBackground(Color.gray);
-		brandLbl.setBounds(761, 159, 217, 41);
-		contentPane.add(brandLbl);
 		
 		JLabel cpuLbl = new JLabel("CPU");
 		cpuLbl.setOpaque(true);
@@ -110,35 +105,35 @@ public class AddProductView extends JFrame {
 		ramLbl.setOpaque(true);
 		ramLbl.setHorizontalAlignment(SwingConstants.CENTER);
 		ramLbl.setBackground(Color.gray);
-		ramLbl.setBounds(409, 262, 217, 41);
+		ramLbl.setBounds(281, 265, 217, 41);
 		contentPane.add(ramLbl);
 		
-		JLabel vgaLbl = new JLabel("VGA");
-		vgaLbl.setOpaque(true);
-		vgaLbl.setHorizontalAlignment(SwingConstants.CENTER);
-		vgaLbl.setBackground(Color.gray);
-		vgaLbl.setBounds(761, 262, 217, 41);
-		contentPane.add(vgaLbl);
+		JLabel screenCardLbl = new JLabel("Screen Card");
+		screenCardLbl.setOpaque(true);
+		screenCardLbl.setHorizontalAlignment(SwingConstants.CENTER);
+		screenCardLbl.setBackground(Color.gray);
+		screenCardLbl.setBounds(544, 265, 217, 41);
+		contentPane.add(screenCardLbl);
 		
 		JLabel screenSizeLbl = new JLabel("Screen Size");
 		screenSizeLbl.setOpaque(true);
 		screenSizeLbl.setHorizontalAlignment(SwingConstants.CENTER);
 		screenSizeLbl.setBackground(Color.gray);
-		screenSizeLbl.setBounds(27, 362, 217, 41);
+		screenSizeLbl.setBounds(281, 454, 217, 41);
 		contentPane.add(screenSizeLbl);
 		
 		JLabel priceLbl = new JLabel("Price");
 		priceLbl.setOpaque(true);
 		priceLbl.setHorizontalAlignment(SwingConstants.CENTER);
 		priceLbl.setBackground(Color.gray);
-		priceLbl.setBounds(409, 362, 217, 41);
+		priceLbl.setBounds(27, 362, 217, 41);
 		contentPane.add(priceLbl);
 		
 		JLabel quantityLbl = new JLabel("Quantity");
 		quantityLbl.setOpaque(true);
 		quantityLbl.setHorizontalAlignment(SwingConstants.CENTER);
 		quantityLbl.setBackground(Color.gray);
-		quantityLbl.setBounds(761, 362, 217, 41);
+		quantityLbl.setBounds(544, 162, 217, 41);
 		contentPane.add(quantityLbl);
 		
 		computerNameTxt = new JTextField();
@@ -148,13 +143,8 @@ public class AddProductView extends JFrame {
 		
 		computerCodeTxt = new JTextField();
 		computerCodeTxt.setColumns(10);
-		computerCodeTxt.setBounds(409, 201, 217, 41);
+		computerCodeTxt.setBounds(281, 204, 217, 41);
 		contentPane.add(computerCodeTxt);
-		
-		brandTxt = new JTextField();
-		brandTxt.setColumns(10);
-		brandTxt.setBounds(761, 201, 217, 41);
-		contentPane.add(brandTxt);
 		
 		cpuTxt = new JTextField();
 		cpuTxt.setColumns(10);
@@ -163,63 +153,63 @@ public class AddProductView extends JFrame {
 		
 		ramTxt = new JTextField();
 		ramTxt.setColumns(10);
-		ramTxt.setBounds(409, 299, 217, 41);
+		ramTxt.setBounds(281, 302, 217, 41);
 		contentPane.add(ramTxt);
 		
-		vgaTxt = new JTextField();
-		vgaTxt.setColumns(10);
-		vgaTxt.setBounds(761, 299, 217, 41);
-		contentPane.add(vgaTxt);
+		screenCardTxt = new JTextField();
+		screenCardTxt.setColumns(10);
+		screenCardTxt.setBounds(544, 302, 217, 41);
+		contentPane.add(screenCardTxt);
 		
 		screenSizeTxt = new JTextField();
 		screenSizeTxt.setColumns(10);
-		screenSizeTxt.setBounds(27, 400, 217, 41);
+		screenSizeTxt.setBounds(281, 492, 217, 41);
 		contentPane.add(screenSizeTxt);
 		
 		priceTxt = new JTextField();
 		priceTxt.setColumns(10);
-		priceTxt.setBounds(409, 400, 217, 41);
+		priceTxt.setBounds(27, 400, 217, 41);
 		contentPane.add(priceTxt);
 		
 		quantityTxt = new JTextField();
 		quantityTxt.setColumns(10);
-		quantityTxt.setBounds(761, 400, 217, 41);
+		quantityTxt.setBounds(544, 200, 217, 41);
 		contentPane.add(quantityTxt);
 		
-		computerTypeLbl = new JLabel("Computer Type");
-		computerTypeLbl.setOpaque(true);
-		computerTypeLbl.setHorizontalAlignment(SwingConstants.CENTER);
-		computerTypeLbl.setBackground(Color.GRAY);
-		computerTypeLbl.setBounds(27, 467, 217, 41);
-		contentPane.add(computerTypeLbl);
+		machineTypeLbl = new JLabel("Machine Type");
+		machineTypeLbl.setOpaque(true);
+		machineTypeLbl.setHorizontalAlignment(SwingConstants.CENTER);
+		machineTypeLbl.setBackground(Color.GRAY);
+		machineTypeLbl.setBounds(544, 359, 217, 41);
+		contentPane.add(machineTypeLbl);
 		
-		computerTypeTxt = new JTextField();
-		computerTypeTxt.setColumns(10);
-		computerTypeTxt.setBounds(27, 508, 217, 41);
-		contentPane.add(computerTypeTxt);
+		machineTypeTxt = new JTextField();
+		machineTypeTxt.setColumns(10);
+		machineTypeTxt.setBounds(544, 400, 217, 41);
+		contentPane.add(machineTypeTxt);
 		
-		weightLbl = new JLabel("Weight");
-		weightLbl.setOpaque(true);
-		weightLbl.setHorizontalAlignment(SwingConstants.CENTER);
-		weightLbl.setBackground(Color.GRAY);
-		weightLbl.setBounds(409, 467, 217, 41);
-		contentPane.add(weightLbl);
+		batteryCapacityLbl = new JLabel("Battery Capacity");
+		batteryCapacityLbl.setOpaque(true);
+		batteryCapacityLbl.setHorizontalAlignment(SwingConstants.CENTER);
+		batteryCapacityLbl.setBackground(Color.GRAY);
+		batteryCapacityLbl.setBounds(544, 454, 217, 41);
+		contentPane.add(batteryCapacityLbl);
 		
-		weightTxt = new JTextField();
-		weightTxt.setColumns(10);
-		weightTxt.setBounds(409, 508, 217, 41);
-		contentPane.add(weightTxt);
+		batteryCapacityTxt = new JTextField();
+		batteryCapacityTxt.setColumns(10);
+		batteryCapacityTxt.setBounds(544, 495, 217, 41);
+		contentPane.add(batteryCapacityTxt);
 		
 		originLbl = new JLabel("Origin");
 		originLbl.setOpaque(true);
 		originLbl.setHorizontalAlignment(SwingConstants.CENTER);
 		originLbl.setBackground(Color.GRAY);
-		originLbl.setBounds(761, 467, 217, 41);
+		originLbl.setBounds(793, 321, 217, 41);
 		contentPane.add(originLbl);
 		
 		originTxt = new JTextField();
 		originTxt.setColumns(10);
-		originTxt.setBounds(761, 508, 217, 41);
+		originTxt.setBounds(793, 362, 217, 41);
 		contentPane.add(originTxt);
 		
 		addLbl = new JLabel("ADD PRODUCT");
@@ -240,39 +230,85 @@ public class AddProductView extends JFrame {
 		cancelLbl.addMouseListener(addProductController);
 		contentPane.add(cancelLbl);
 		
+		sourceCapacityTxt = new JTextField();
+		sourceCapacityTxt.setColumns(10);
+		sourceCapacityTxt.setBounds(281, 403, 217, 41);
+		contentPane.add(sourceCapacityTxt);
+		
+		JLabel sourceCapacityLbl = new JLabel("Souce Capacity");
+		sourceCapacityLbl.setOpaque(true);
+		sourceCapacityLbl.setHorizontalAlignment(SwingConstants.CENTER);
+		sourceCapacityLbl.setBackground(Color.GRAY);
+		sourceCapacityLbl.setBounds(281, 365, 217, 41);
+		contentPane.add(sourceCapacityLbl);
+		
+		JLabel romLbl = new JLabel("Rom");
+		romLbl.setOpaque(true);
+		romLbl.setHorizontalAlignment(SwingConstants.CENTER);
+		romLbl.setBackground(Color.GRAY);
+		romLbl.setBounds(27, 451, 217, 41);
+		contentPane.add(romLbl);
+		
+		romTxt = new JTextField();
+		romTxt.setColumns(10);
+		romTxt.setBounds(27, 491, 217, 41);
+		contentPane.add(romTxt);
+		
+		refreshLbl = new JLabel("REFRESH");
+		refreshLbl.setOpaque(true);
+		refreshLbl.setHorizontalAlignment(SwingConstants.CENTER);
+		refreshLbl.setForeground(Color.WHITE);
+		refreshLbl.setBackground(Color.GREEN);
+		refreshLbl.setBounds(837, 201, 141, 41);
+		contentPane.add(refreshLbl);
+		
 		this.setLocationRelativeTo(null);
 		this.setUndecorated(true);
 		setVisible(true);
 	}
 	
 	public void clickAddLbl() {
+		String screenCard = screenCardTxt.getText();
 		String computerName = computerNameTxt.getText();
 		String computerCode = computerCodeTxt.getText();
-		String brand = brandTxt.getText();
-		String cpu = cpuTxt.getText();
-		int ram = Integer.parseInt(ramTxt.getText());
-		String vga = vgaTxt.getText();
+		String sourceCapacity = sourceCapacityTxt.getText();
+		String cpuName = cpuTxt.getText();
+		String ram = ramTxt.getText();
+		String machineType = machineTypeTxt.getText();
 		Double price = Double.parseDouble( priceTxt.getText());
 		int quantity = Integer.parseInt(quantityTxt.getText());
-		String computerType = computerTypeTxt.getText();
-		Double weight = Double.parseDouble(weightTxt.getText());
+		String rom = romTxt.getText();
 		String origin = originTxt.getText();
 		Double screenSize = Double.parseDouble(screenSizeTxt.getText());
-		
-		Product com = new Product(computerName, computerCode, brand, price, cpu, ram, vga,
-				screenSize,weight , computerType, origin, quantity);
-		
+		String batteryCapacity = batteryCapacityTxt.getText();
+		Computer com = new Computer(computerCode, computerName, quantity, cpuName, ram, screenCard, price, sourceCapacity, machineType, rom, screenSize,
+				batteryCapacity, origin);
+		//back-end
 		ProductDAO productdao = new ProductDAO();
 		productdao.insert(com);
-		
 		//front-end
-		String[] rowData = {computerName, computerCode, brand, String.valueOf(price), cpu, String.valueOf(ram), vga, String.valueOf(screenSize), String.valueOf(weight), computerType, origin, String.valueOf(quantity)};
+		String[] rowData = {computerCode, computerName, String.valueOf(quantity), cpuName, ram, screenCard, String.valueOf(price), sourceCapacity, machineType, rom,
+				String.valueOf(screenSize),	batteryCapacity, origin};
 		ProductView.model.addRow(rowData);
 	}
 	public void clickCancelLbl() {
 		this.dispose();
 	}
-	
+	public void clickRefreshLbl() {
+		computerNameTxt.setText(null);
+		computerCodeTxt.setText(null);
+		quantityTxt.setText(null);
+		cpuTxt.setText(null);
+		ramTxt.setText(null);
+		screenCardTxt.setText(null);
+		priceTxt.setText(null);
+		sourceCapacityTxt.setText(null);
+		machineTypeTxt.setText(null);
+		romTxt.setText(null);
+		screenSizeTxt.setText(null);
+		batteryCapacityTxt.setText(null);
+		originTxt.setText(null);
+	}
 }
 
 

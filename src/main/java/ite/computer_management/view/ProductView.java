@@ -19,7 +19,7 @@ import javax.swing.table.TableRowSorter;
 
 import ite.computer_management.controller.ProductController;
 import ite.computer_management.dao.ProductDAO;
-import ite.computer_management.model.Product;
+import ite.computer_management.model.Computer;
 
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -46,10 +46,8 @@ public class ProductView extends JPanel {
 	public JTextField searchTxt;
 	public JButton excelBtn;
 	
-	
 	public ProductView() {
 		ProductController productController = new ProductController(this);
-		
 		this.setSize(1032,763);
 		setLayout(null);
 		
@@ -122,11 +120,10 @@ public class ProductView extends JPanel {
 		new AddProductView();
 	}
 	public void clickDeleteLbl() {
-		
 		int selectedRow = table.getSelectedRow();
 		String computerName = model.getValueAt(selectedRow,0).toString();
 		String computerCode =  model.getValueAt(selectedRow, 1).toString(); // index cua gelValuAt bat dau tu 0
-		Product deleteProduct = new Product();
+		Computer deleteProduct = new Computer();
 		deleteProduct.setComputerCode(computerCode);
 		int result = ProductDAO.getInstance().delete(deleteProduct);
 		System.out.println(result);
@@ -150,7 +147,6 @@ public class ProductView extends JPanel {
 		
 	}
 	public void clickExportExcel() {
-		
 			try {
 				JFileChooser jFileChooser = new JFileChooser();
 				jFileChooser.showSaveDialog(this);
@@ -180,33 +176,31 @@ public class ProductView extends JPanel {
 					wb.close();
 					out.close();
 					}
-			
+				JOptionPane.showMessageDialog(null, "Export successfully ><");
 				}catch(FileNotFoundException e) {
 					JOptionPane.showMessageDialog(null, e);
 				}catch(IOException e) {
 					JOptionPane.showMessageDialog(null, e);
 				}
-	
     }
 	public void clickEditBtn() {
-		
 		int rowCount= table.getSelectedRowCount(); 
 		int selectedRowIndex = table.getSelectedRow();
 		if(rowCount ==1) { 
 			EditProductView editProductView = new EditProductView(this);
-			editProductView.computerNameTxt.setText((String)model.getValueAt(selectedRowIndex,0));
-			editProductView.computerCodeTxt.setText((String)model.getValueAt(selectedRowIndex, 1));
-			editProductView.brandTxt.setText((String)model.getValueAt(selectedRowIndex, 2));
-			editProductView.priceTxt.setText((String)model.getValueAt(selectedRowIndex, 3));
-			editProductView.cpuTxt.setText((String)model.getValueAt(selectedRowIndex, 4));
-			editProductView.ramTxt.setText((String)model.getValueAt(selectedRowIndex, 5));
-			editProductView.vgaTxt.setText((String)model.getValueAt(selectedRowIndex, 6));
-			editProductView.screenSizeTxt.setText((String)model.getValueAt(selectedRowIndex, 7));
-			editProductView.weightTxt.setText((String)model.getValueAt(selectedRowIndex, 8));
-			editProductView.computerTypeTxt.setText((String)model.getValueAt(selectedRowIndex, 9));
-			editProductView.originTxt.setText((String)model.getValueAt(selectedRowIndex, 10));
-			editProductView.quantityTxt.setText((String)model.getValueAt(selectedRowIndex, 11));
-		
+			editProductView.computerCodeTxt.setText( (String)model.getValueAt(selectedRowIndex, 0) );
+			editProductView.computerNameTxt.setText( (String)model.getValueAt(selectedRowIndex,1) );
+			editProductView.quantityTxt.setText( (String)model.getValueAt(selectedRowIndex, 2) );
+			editProductView.cpuTxt.setText( (String)model.getValueAt(selectedRowIndex, 3) );
+			editProductView.ramTxt.setText( (String)model.getValueAt(selectedRowIndex, 4) );
+			editProductView.screenCardTxt.setText( (String)model.getValueAt(selectedRowIndex, 5) );
+			editProductView.priceTxt.setText( (String)model.getValueAt(selectedRowIndex, 6) );
+			editProductView.sourceCapacityTxt.setText( (String)model.getValueAt(selectedRowIndex, 7) );
+			editProductView.machineTypeTxt.setText( (String)model.getValueAt(selectedRowIndex, 8) );
+			editProductView.romTxt.setText( (String)model.getValueAt(selectedRowIndex, 9) );
+			editProductView.screenSizeTxt.setText( (String)model.getValueAt(selectedRowIndex, 10) );
+			editProductView.batteryCapacityTxt.setText( (String)model.getValueAt( selectedRowIndex, 11 ) );
+			editProductView.originTxt.setText( (String)model.getValueAt(selectedRowIndex, 12) );
 		}else {
 			JOptionPane.showMessageDialog(null, "Please select row of data that needs editing >< ");
 			

@@ -17,6 +17,8 @@ public class AddProductController implements MouseListener {
 			addProductView.clickAddLbl();
 		}else if(e.getSource() == addProductView.cancelLbl) {
 			addProductView.clickCancelLbl();
+		}else if(e.getSource() == addProductView.refreshLbl) {
+			addProductView.clickRefreshLbl();
 		}
 	}
 
