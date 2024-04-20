@@ -16,13 +16,14 @@ import javax.swing.JButton;
 import java.awt.Color;
 import javax.swing.SwingConstants;
 import java.awt.Font;
+import java.math.BigDecimal;
 
 public class EditProductView extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	public JButton cancelBtn;
-	public  JButton saveBtn;
+	public  JButton updateBtn;
 	
 	//-----
 //	public static void main(String[] args) {
@@ -66,10 +67,10 @@ public class EditProductView extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		saveBtn = new JButton("Save");
-		saveBtn.setBounds(338, 529, 115, 41);
-		saveBtn.addMouseListener(editProductController);
-		contentPane.add(saveBtn);
+		updateBtn = new JButton("Save");
+		updateBtn.setBounds(338, 529, 115, 41);
+		updateBtn.addMouseListener(editProductController);
+		contentPane.add(updateBtn);
 		
 		cancelBtn = new JButton("Cancel");
 		cancelBtn.setBounds(608, 529, 115, 41);
@@ -80,12 +81,12 @@ public class EditProductView extends JFrame {
 		computerNameLbl.setOpaque(true);
 		computerNameLbl.setHorizontalAlignment(SwingConstants.CENTER);
 		computerNameLbl.setBackground(Color.GRAY);
-		computerNameLbl.setBounds(10, 142, 217, 41);
+		computerNameLbl.setBounds(10, 141, 217, 41);
 		contentPane.add(computerNameLbl);
 		
 		computerNameTxt = new JTextField();
 		computerNameTxt.setColumns(10);
-		computerNameTxt.setBounds(10, 184, 217, 41);
+		computerNameTxt.setBounds(10, 183, 217, 41);
 		contentPane.add(computerNameTxt);
 		
 		JLabel cpuLbl = new JLabel("CPU");
@@ -133,7 +134,7 @@ public class EditProductView extends JFrame {
 		
 		computerCodeTxt = new JTextField();
 		computerCodeTxt.setColumns(10);
-		computerCodeTxt.setBounds(264, 187, 217, 41);
+		computerCodeTxt.setBounds(264, 183, 217, 41);
 		contentPane.add(computerCodeTxt);
 		
 		JLabel ramLbl = new JLabel("RAM");
@@ -241,7 +242,7 @@ public class EditProductView extends JFrame {
 		this.setLocationRelativeTo(null);
 		this.setVisible(true);
 	}
-	public void clickSaveBtn() {
+	public void clickUpdateBtn() {
 		int selectedRowIndex = this.productView.table.getSelectedRow();
 		String conditionComputerCode = (String) this.productView.table.getValueAt(selectedRowIndex, 1);
 		String screenCard = screenCardTxt.getText();
@@ -251,7 +252,9 @@ public class EditProductView extends JFrame {
 		String cpuName = cpuTxt.getText();
 		String ram = ramTxt.getText();
 		String machineType = machineTypeTxt.getText();
-		Double price = Double.parseDouble( priceTxt.getText());
+		BigDecimal price = BigDecimal.valueOf( Long.parseLong(priceTxt.getText()) );
+		
+		System.out.println(price);
 		int quantity = Integer.parseInt(quantityTxt.getText());
 		String rom = romTxt.getText();
 		String origin = originTxt.getText();
@@ -261,23 +264,21 @@ public class EditProductView extends JFrame {
 				batteryCapacity, origin);
 		//back-end
 		int check = ProductDAO.getInstance().update(com, conditionComputerCode);
-		if(check == 1) {
 			//front-end
+			productView.model.setValueAt(computerName, selectedRowIndex, 0);
 			productView.model.setValueAt(computerCode, selectedRowIndex, 1);
-			productView.model.setValueAt(computerName, selectedRowIndex, 2);
-			productView.model.setValueAt(quantity, selectedRowIndex, 3);
-			productView.model.setValueAt(cpuName, selectedRowIndex, 4);
-			productView.model.setValueAt(ram, selectedRowIndex, 2);
-			productView.model.setValueAt(screenCard, selectedRowIndex, 2);
-			productView.model.setValueAt(price, selectedRowIndex, 2);
-			productView.model.setValueAt(sourceCapacity, selectedRowIndex, 2);
-			productView.model.setValueAt(machineType, selectedRowIndex, 2);
-			productView.model.setValueAt(rom, selectedRowIndex, 2);
-			productView.model.setValueAt(screenSize, selectedRowIndex, 2);
-			productView.model.setValueAt(batteryCapacity, selectedRowIndex, 2);
-			productView.model.setValueAt(origin, selectedRowIndex, 2);
-		}
-		
+			productView.model.setValueAt(quantity, selectedRowIndex, 2);
+			productView.model.setValueAt(cpuName, selectedRowIndex, 3);
+			productView.model.setValueAt(ram, selectedRowIndex, 4);
+			productView.model.setValueAt(screenCard, selectedRowIndex, 5);
+			productView.model.setValueAt(price, selectedRowIndex, 6);
+			productView.model.setValueAt(sourceCapacity, selectedRowIndex, 7);
+			productView.model.setValueAt(machineType, selectedRowIndex, 8);
+			productView.model.setValueAt(rom, selectedRowIndex, 9);
+			productView.model.setValueAt(screenSize, selectedRowIndex, 10);
+			productView.model.setValueAt(batteryCapacity, selectedRowIndex, 11);
+			productView.model.setValueAt(origin, selectedRowIndex, 12);
+	
 	}
 	public void clickCancelBtn() {
 		this.dispose();

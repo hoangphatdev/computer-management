@@ -13,8 +13,12 @@ import ite.computer_management.dao.ProductDAO;
 import ite.computer_management.model.Computer;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import java.awt.Font;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+
 import javax.swing.JTextField;
 
 public class AddProductView extends JFrame {
@@ -40,27 +44,10 @@ public class AddProductView extends JFrame {
 	public JLabel refreshLbl;
 	public JLabel addLbl;
 	public JLabel cancelLbl;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					AddProductView frame = new AddProductView();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
-	public AddProductView() {
+	public ProductView productView;
+	
+	public AddProductView(ProductView productView) {
+		this.productView = productView;
 		AddProductController addProductController = new AddProductController(this);
 		
 		
@@ -84,7 +71,7 @@ public class AddProductView extends JFrame {
 		computerNameLbl.setBackground(Color.gray);
 		computerNameLbl.setOpaque(true);
 		computerNameLbl.setHorizontalAlignment(SwingConstants.CENTER);
-		computerNameLbl.setBounds(27, 159, 217, 41);
+		computerNameLbl.setBounds(27, 162, 217, 41);
 		contentPane.add(computerNameLbl);
 		
 		JLabel computerCodeLbl = new JLabel("Computer Code");
@@ -137,7 +124,7 @@ public class AddProductView extends JFrame {
 		contentPane.add(quantityLbl);
 		
 		computerNameTxt = new JTextField();
-		computerNameTxt.setBounds(27, 201, 217, 41);
+		computerNameTxt.setBounds(27, 204, 217, 41);
 		contentPane.add(computerNameTxt);
 		computerNameTxt.setColumns(10);
 		
@@ -260,6 +247,7 @@ public class AddProductView extends JFrame {
 		refreshLbl.setForeground(Color.WHITE);
 		refreshLbl.setBackground(Color.GREEN);
 		refreshLbl.setBounds(837, 201, 141, 41);
+		refreshLbl.addMouseListener(addProductController);
 		contentPane.add(refreshLbl);
 		
 		this.setLocationRelativeTo(null);
@@ -268,27 +256,31 @@ public class AddProductView extends JFrame {
 	}
 	
 	public void clickAddLbl() {
-		String screenCard = screenCardTxt.getText();
-		String computerName = computerNameTxt.getText();
-		String computerCode = computerCodeTxt.getText();
-		String sourceCapacity = sourceCapacityTxt.getText();
-		String cpuName = cpuTxt.getText();
-		String ram = ramTxt.getText();
-		String machineType = machineTypeTxt.getText();
-		Double price = Double.parseDouble( priceTxt.getText());
-		int quantity = Integer.parseInt(quantityTxt.getText());
-		String rom = romTxt.getText();
-		String origin = originTxt.getText();
-		Double screenSize = Double.parseDouble(screenSizeTxt.getText());
-		String batteryCapacity = batteryCapacityTxt.getText();
-		Computer com = new Computer(computerCode, computerName, quantity, cpuName, ram, screenCard, price, sourceCapacity, machineType, rom, screenSize,
-				batteryCapacity, origin);
-		//back-end
-		ProductDAO.getInstance().insert(com);
-		//front-end
-		String[] rowData = {computerCode, computerName, String.valueOf(quantity), cpuName, ram, screenCard, String.valueOf(price), sourceCapacity, machineType, rom,
-				String.valueOf(screenSize),	batteryCapacity, origin};
-		ProductView.model.addRow(rowData);
+		String preparedScreenCard = screenCardTxt.getText();
+		String preparedComputerName = computerNameTxt.getText();
+		String preparedComputerCode = computerCodeTxt.getText();
+		String preparedSourceCapacity = sourceCapacityTxt.getText();
+		String preparedCpuName = cpuTxt.getText();
+		String preparedRam = ramTxt.getText();
+		String preparedMachineType = machineTypeTxt.getText();
+		BigDecimal preparedPrice = BigDecimal.valueOf( Double.parseDouble(priceTxt.getText()) );
+		int preparedQuantity = Integer.parseInt(quantityTxt.getText());
+		String preparedRom = romTxt.getText();
+		String preparedOrigin = originTxt.getText();
+		Double preparedScreenSize = Double.parseDouble(screenSizeTxt.getText());
+		String preparedBatteryCapacity = batteryCapacityTxt.getText();
+		Computer preparedComputer = new Computer(preparedComputerCode, preparedComputerName, preparedQuantity, preparedCpuName, preparedRam, preparedScreenCard,
+					preparedPrice, preparedSourceCapacity, preparedMachineType, preparedRom, preparedScreenSize,preparedBatteryCapacity, preparedOrigin);
+		
+
+		int check = ProductDAO.getInstance().insert(preparedComputer);
+		if(check == 1) {
+			//front-end
+			String[] rowData = {preparedComputerName, preparedComputerCode, String.valueOf(preparedQuantity), preparedCpuName, preparedRam, preparedScreenCard,String.valueOf(preparedPrice),
+														 preparedSourceCapacity, preparedMachineType, preparedRom,String.valueOf(preparedScreenSize),	preparedBatteryCapacity, preparedOrigin};
+			productView.model.addRow(rowData);
+		}
+		
 	}
 	public void clickCancelLbl() {
 		this.dispose();

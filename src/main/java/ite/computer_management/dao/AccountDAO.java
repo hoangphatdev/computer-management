@@ -76,9 +76,9 @@ public class AccountDAO implements DAOInterface<Account> {
 			ps.setString(1, account.getFullName());
 			ps.setString(2, account.getUserName());
 			ps.setString(3, account.getPassword());
-			ps.setString(4, condition);
+			ps.setString(4, account.getRole());
+			ps.setString(5, condition);
 			check = ps.executeUpdate();
-			System.out.println("dev test update function, update: " + check); // dev testing
 			JOptionPane.showMessageDialog(null, "Update successfully >>");
 			connect.close();
 		} catch (SQLException e) {

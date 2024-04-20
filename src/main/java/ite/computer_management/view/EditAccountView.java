@@ -18,10 +18,10 @@ public class EditAccountView extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField fullNameTxt;
-	private JTextField userNameTxt;
-	private JTextField passwordTxt;
-	private JTextField roleTxt;
+	public JTextField fullNameTxt;
+	public JTextField userNameTxt;
+	public JTextField passwordTxt;
+	public JTextField roleTxt;
 	public JButton updateBtn;
 	public JButton refreshBtn;
 	public JButton cancelBtn;
@@ -32,7 +32,6 @@ public class EditAccountView extends JFrame {
 		init();
 		this.setLocationRelativeTo(null);
 		this.setVisible(true);
-		
 	}
 	public void init() {
 		EditAccountController editAccountController = new EditAccountController(this);
@@ -88,10 +87,12 @@ public class EditAccountView extends JFrame {
 		
 		cancelBtn = new JButton("CANCEL");
 		cancelBtn.setBounds(246, 395, 110, 30);
+		cancelBtn.addMouseListener(editAccountController);
 		contentPane.add(cancelBtn);
 		
 		refreshBtn = new JButton("REFRESH");
 		refreshBtn.setBounds(436, 390, 110, 30);
+		refreshBtn.addMouseListener(editAccountController);
 		contentPane.add(refreshBtn);
 	}
 
@@ -103,16 +104,16 @@ public class EditAccountView extends JFrame {
 		Account account = new Account(fullName, userName, password, role);
 		
 		int selectedRowIndex =  accountView.table.getSelectedRow();
-		String userNameCondition = (String) accountView.model.getValueAt(selectedRowIndex, 2);
+		String userNameCondition = (String) accountView.model.getValueAt(selectedRowIndex, 1);
 		//back-end
 		int check = AccountDAO.getInstance().update(account, userNameCondition);
-		if(check == 1) {
+		
 			//front-end
-			accountView.model.setValueAt(fullName, selectedRowIndex, 1);
-			accountView.model.setValueAt(userName, selectedRowIndex, 2);
-			accountView.model.setValueAt(password, selectedRowIndex, 3);
-			accountView.model.setValueAt(role, selectedRowIndex, 4);
-		}
+			accountView.model.setValueAt(fullName, selectedRowIndex, 0);
+			accountView.model.setValueAt(userName, selectedRowIndex, 1);
+			accountView.model.setValueAt(password, selectedRowIndex, 2);
+			accountView.model.setValueAt(role, selectedRowIndex, 3);
+		
 		
 	}
 

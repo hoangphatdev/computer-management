@@ -1,5 +1,7 @@
 package ite.computer_management.model;
 
+import java.math.BigDecimal;
+
 public class Computer{
 	private String computerCode;
 	private String computerName;
@@ -7,7 +9,7 @@ public class Computer{
 	private String cpuName;
 	private String ram;
 	private String screenCard;
-	private double price;
+	private BigDecimal price;
 	private String sourceCapacity;
 	private String machineType;
 	private String rom;
@@ -51,10 +53,10 @@ public class Computer{
 	public void setScreenCard(String screenCard) {
 		this.screenCard = screenCard;
 	}
-	public double getPrice() {
+	public BigDecimal getPrice() {
 		return price;
 	}
-	public void setPrice(double price) {
+	public void setPrice(BigDecimal price) {
 		this.price = price;
 	}
 	public String getSourceCapacity() {
@@ -94,7 +96,7 @@ public class Computer{
 		this.origin = origin;
 	}
 	public Computer(String computerCode, String computerName, int quantity, String cpuName, String ram, String screenCard,
-			double price, String sourceCapacity, String machineType, String rom, double screenSize,
+			BigDecimal price, String sourceCapacity, String machineType, String rom, double screenSize,
 			String batteryCapacity, String origin) {
 		super();
 		this.computerCode = computerCode;

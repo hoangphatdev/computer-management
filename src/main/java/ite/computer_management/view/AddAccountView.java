@@ -119,7 +119,7 @@ public class AddAccountView extends JFrame {
 	}
 	public void clickRefreshBtn() {
 		fullNameTxt.setText(null);
-		userNameTxt.setAction(null);
+		userNameTxt.setText(null);
 		passwordTxt.setText(null);
 		roleTxt.setText(null);
 	}

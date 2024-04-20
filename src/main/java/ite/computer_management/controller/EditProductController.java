@@ -6,16 +6,16 @@ import java.awt.event.MouseListener;
 import ite.computer_management.view.EditProductView;
 
 public class EditProductController implements MouseListener {
-	EditProductView edit;
-	public EditProductController(EditProductView edit) {
-		this.edit = edit;
+	EditProductView editProductView;
+	public EditProductController(EditProductView editProductView) {
+		this.editProductView = editProductView;
 	}
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		if(e.getSource() == edit.saveBtn) {
-			edit.clickSaveBtn();
-		}else if(e.getSource() == edit.cancelBtn) {
-			edit.clickCancelBtn();
+		if(e.getSource() == editProductView.updateBtn) {
+			editProductView.clickUpdateBtn();
+		}else if(e.getSource() == editProductView.cancelBtn) {
+			editProductView.clickCancelBtn();
 		}
 		
 	}

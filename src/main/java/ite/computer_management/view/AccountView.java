@@ -99,21 +99,46 @@ public class AccountView extends JPanel {
 		new AddAccountView(this);
 	}
 	public void clickDeleteLbl() {
-		int selectedRowIndex = table.getSelectedRow();
-		String fullName = (String) model.getValueAt(selectedRowIndex, 1);
-		String userName = (String)model.getValueAt(selectedRowIndex, 2);
-		Account account = new Account();
-		account.setUserName(userName);
-		//back-end
-		int check = accountDAO.delete(account);
-		if(check ==1) {
-			//front-end
-			model.removeRow(selectedRowIndex);
+		int frontEndCheck = table.getSelectedRowCount();
+		
+		if(frontEndCheck <1) {
+			JOptionPane.showMessageDialog(null, "Please select row to delete.");
+		}else {
+			int confirm = JOptionPane.showConfirmDialog(null, "Are you sure?");
+			if(confirm ==0) {
+				int selectedRowIndex = table.getSelectedRow();
+				String fullName = (String) model.getValueAt(selectedRowIndex, 0);
+				String userName = (String)model.getValueAt(selectedRowIndex, 1);
+				Account account = new Account();
+				account.setUserName(userName);
+				//back-end
+				int check = accountDAO.delete(account);
+				if(check ==1) {
+					//front-end
+					model.removeRow(selectedRowIndex);
+				}
+			}
 		}
 		
 	}
 	public void clickEditLbl() {
-		new EditAccountView(this);
+		int check = table.getSelectedRowCount();
+		int selectedRowIndex = table.getSelectedRow();
+		if(check <1) {
+			JOptionPane.showMessageDialog(null, "Please select row to edit.");
+		}else {
+			String fullName = (String) model.getValueAt(selectedRowIndex, 0);  // getValueAt: first Parameter is: 0
+			String userName = (String) model.getValueAt(selectedRowIndex, 1);
+			String password = (String) model.getValueAt(selectedRowIndex, 2);
+			String role = (String) model.getValueAt(selectedRowIndex, 3);
+			
+			EditAccountView editAccountView = new EditAccountView(this);
+			editAccountView.fullNameTxt.setText(fullName); 
+			editAccountView.userNameTxt.setText(userName);
+			editAccountView.passwordTxt.setText(password);
+			editAccountView.roleTxt.setText(role);
+			
+		}
 		
 	}
 	public void clickExportExcel() {

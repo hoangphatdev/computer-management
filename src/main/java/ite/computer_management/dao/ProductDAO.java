@@ -1,6 +1,7 @@
 package ite.computer_management.dao;
 
-import java.sql.Statement; 
+import java.sql.Statement;
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -36,13 +37,13 @@ public class ProductDAO implements DAOInterface<Computer> {
 					+ "machine_Type, rom, screen_Size, battery_Capacity, origin)" + " VALUE"		
 					+ "(?,?,?,?,?,?,?,?,?,?,?,?,?)";
 			PreparedStatement ps = connect.prepareStatement(sql);
-			ps.setString(1, com.getComputerName());    // setString--> first Parameter is 1
-			ps.setString(2, com.getComputerCode());
+			ps.setString(1, com.getComputerCode());    // setString--> first Parameter is 1
+			ps.setString(2, com.getComputerName());
 			ps.setInt(3, com.getQuantity());
 			ps.setString(4, com.getCpuName());
 			ps.setString(5, com.getRam());
 			ps.setString(6, com.getScreenCard());
-			ps.setDouble(7, com.getPrice());
+			ps.setBigDecimal(7, com.getPrice());
 			ps.setString(8, com.getSourceCapacity());
 			ps.setString(9, com.getMachineType());
 			ps.setString(10, com.getRom());
@@ -57,7 +58,7 @@ public class ProductDAO implements DAOInterface<Computer> {
 			
 			
 		} catch (SQLException e) {
-			JOptionPane.showMessageDialog(null, "Error: " + e);
+			JOptionPane.showMessageDialog(null, "Computer code already exist");
 		}
 		return check;
 	}
@@ -96,7 +97,7 @@ public class ProductDAO implements DAOInterface<Computer> {
 			ps.setString(4, com.getCpuName());
 			ps.setString(5, com.getRam());
 			ps.setString(6, com.getScreenCard());
-			ps.setDouble(7, com.getPrice());
+			ps.setBigDecimal(7, com.getPrice());
 			ps.setString(8, com.getSourceCapacity());
 			ps.setString(9, com.getMachineType());
 			ps.setString(10, com.getRom());
@@ -126,9 +127,10 @@ public class ProductDAO implements DAOInterface<Computer> {
 			ResultSetMetaData rsmd = rs.getMetaData();
 		
 			int cols = rsmd.getColumnCount();
-//			String[] colName = new String[cols];
-			String[] colName = {"Computer Code", "Computer Name" , "Quantity" , "CPU" ,"RAM", "Screen Card" , "Price" ,"Source Capacity" , "Machine Type",
+
+			String[] colName = {"Computer Name", "Computer Code" , "Quantity" , "CPU" ,"RAM", "Screen Card" , "Price" ,"Source Capacity" , "Machine Type",
 									 "ROM" , "Screen Size" ,"Battery Capacity" ,"Origin"}; 
+//			String[] colName = new String[cols];
 //			for(int i=0; i<cols; i++) {
 //				colName[i] = rsmd.getColumnClassName(i+1); //thu tu cot bat dau tu 1
 //			}
@@ -150,7 +152,7 @@ public class ProductDAO implements DAOInterface<Computer> {
 				screenSize = rs.getDouble(11);
 				batteryCapacity = rs.getString(12);
 				origin = rs.getString(13);
-				String[] row = { computerCode, computerName, String.valueOf(quantity), cpu, ram, screenCard, String.valueOf(price), sourceCapacity, machineType,
+				String[] row = { computerName, computerCode, String.valueOf(quantity), cpu, ram, screenCard, String.valueOf(price), sourceCapacity, machineType,
 						rom, String.valueOf(screenSize), batteryCapacity, origin};
 				productView.model.addRow(row);
 			}
@@ -177,6 +179,6 @@ public class ProductDAO implements DAOInterface<Computer> {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-
-
+	
+	
 }

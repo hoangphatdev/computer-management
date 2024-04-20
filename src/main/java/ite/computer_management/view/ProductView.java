@@ -88,7 +88,7 @@ public class ProductView extends JPanel {
 		add(seeDetailLbl);
 		
 		JScrollPane scrollPane = new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-		scrollPane.setBounds(39, 61, 912, 671);
+		scrollPane.setBounds(10, 61, 1012, 671);
 		add(scrollPane);
 		//create table and fetch data from database
 		table = new JTable();
@@ -109,24 +109,34 @@ public class ProductView extends JPanel {
 		add(searchLbl);
 		
 		excelBtn = new JButton("Excel");
-		excelBtn.setBounds(958, 77, 64, 52);
+		excelBtn.setBounds(938, 4, 64, 52);
 		excelBtn.addMouseListener(productController);
 		add(excelBtn);
 		
 	}
 	public void clickAddLbl() {
-		new AddProductView();
+		new AddProductView(this);
 	}
 	public void clickDeleteLbl() {
+		int check = table.getSelectedRowCount();
 		int selectedRow = table.getSelectedRow();
-		String computerName = model.getValueAt(selectedRow,0).toString();
-		String computerCode =  model.getValueAt(selectedRow, 1).toString(); // index cua gelValuAt bat dau tu 0
-		Computer deleteProduct = new Computer();
-		deleteProduct.setComputerCode(computerCode);
-		int result = ProductDAO.getInstance().delete(deleteProduct);
-		System.out.println(result);
-		if(result == 1) {
-			model.removeRow(selectedRow);
+		
+		if(check <1) {
+			JOptionPane.showMessageDialog(null, "Please select row to delete.");
+		}else {
+			int confirm = JOptionPane.showConfirmDialog(null, "Are you sure?"); // yes:0, no:1
+			if(confirm == 0) {
+				String computerCode =  model.getValueAt(selectedRow, 1).toString(); // index cua gelValuAt bat dau tu 0
+				String computerName = model.getValueAt(selectedRow,0).toString();
+				Computer deleteProduct = new Computer();
+				deleteProduct.setComputerCode(computerCode);
+				int result = ProductDAO.getInstance().delete(deleteProduct);
+				System.out.println(result);
+				if(result == 1) {
+					model.removeRow(selectedRow);
+				}
+			}
+			
 		}
 	}
 	public void clickSearchBtn() {
@@ -182,12 +192,14 @@ public class ProductView extends JPanel {
 				}
     }
 	public void clickEditBtn() {
-		int rowCount= table.getSelectedRowCount(); 
+		int check = table.getSelectedRowCount();
 		int selectedRowIndex = table.getSelectedRow();
-		if(rowCount ==1) { 
+		if(check <1) { 
+			JOptionPane.showMessageDialog(null, "Please select row to edit >< ");
+		}else {
 			EditProductView editProductView = new EditProductView(this);
-			editProductView.computerCodeTxt.setText( (String)model.getValueAt(selectedRowIndex, 0) );
-			editProductView.computerNameTxt.setText( (String)model.getValueAt(selectedRowIndex,1) );
+			editProductView.computerNameTxt.setText( (String)model.getValueAt(selectedRowIndex,0) );
+			editProductView.computerCodeTxt.setText( (String)model.getValueAt(selectedRowIndex, 1) );
 			editProductView.quantityTxt.setText( (String)model.getValueAt(selectedRowIndex, 2) );
 			editProductView.cpuTxt.setText( (String)model.getValueAt(selectedRowIndex, 3) );
 			editProductView.ramTxt.setText( (String)model.getValueAt(selectedRowIndex, 4) );
@@ -199,8 +211,6 @@ public class ProductView extends JPanel {
 			editProductView.screenSizeTxt.setText( (String)model.getValueAt(selectedRowIndex, 10) );
 			editProductView.batteryCapacityTxt.setText( (String)model.getValueAt( selectedRowIndex, 11 ) );
 			editProductView.originTxt.setText( (String)model.getValueAt(selectedRowIndex, 12) );
-		}else {
-			JOptionPane.showMessageDialog(null, "Please select row of data that needs editing >< ");
 			
 		}
 		
