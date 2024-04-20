@@ -19,7 +19,7 @@ public class ConnectDatabase {
 		try {
 			connect = DriverManager.getConnection(url,name,password);
 //			java.sql.Statement st = connect.createStatement();
-//			String sql = "use coffemanagementsystem";
+//			String sql = "use computer_management";
 //		     st.executeUpdate(sql);
  
 		} catch (Exception e) {

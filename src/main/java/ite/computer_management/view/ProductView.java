@@ -87,13 +87,11 @@ public class ProductView extends JPanel {
 		seeDetailLbl.addMouseListener(productController);
 		add(seeDetailLbl);
 		
-		JScrollPane scrollPane = new JScrollPane();
+		JScrollPane scrollPane = new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 		scrollPane.setBounds(39, 61, 912, 671);
 		add(scrollPane);
-		
+		//create table and fetch data from database
 		table = new JTable();
-		table.addMouseListener(productController);
-		
 		model = (DefaultTableModel) table.getModel();
 		ProductDAO productDAO = new ProductDAO(this);
 		productDAO.selectAll();
@@ -137,15 +135,15 @@ public class ProductView extends JPanel {
 		table.setRowSorter(trs);
 		trs.setRowFilter(RowFilter.regexFilter(searchTxt.getText()));
 	}
-	public void openFile(String file) {
-		try {
-			File path = new File(file);
-			Desktop.getDesktop().open(path);
-		} catch (IOException e) {
-			JOptionPane.showMessageDialog(null,"Error: " + e);
-		}
-		
-	}
+//	public void openFile(String file) {
+//		try {
+//			File path = new File(file);
+//			Desktop.getDesktop().open(path);
+//		} catch (IOException e) {
+//			JOptionPane.showMessageDialog(null,"Error: " + e);
+//		}
+//		
+//	}
 	public void clickExportExcel() {
 			try {
 				JFileChooser jFileChooser = new JFileChooser();

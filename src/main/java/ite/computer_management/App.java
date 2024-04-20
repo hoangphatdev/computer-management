@@ -1,9 +1,4 @@
 package ite.computer_management;
-
-/**
- * Hello world!
- *
- */
 public class App 
 {
     public static void main( String[] args )

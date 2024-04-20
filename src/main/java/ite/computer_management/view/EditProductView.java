@@ -259,13 +259,29 @@ public class EditProductView extends JFrame {
 		String batteryCapacity = batteryCapacityTxt.getText();
 		Computer com = new Computer(computerCode, computerName, quantity, cpuName, ram, screenCard, price, sourceCapacity, machineType, rom, screenSize,
 				batteryCapacity, origin);
-		
-		ProductDAO.getInstance().update(com, conditionComputerCode);
-		
-		//front-end
+		//back-end
+		int check = ProductDAO.getInstance().update(com, conditionComputerCode);
+		if(check == 1) {
+			//front-end
+			productView.model.setValueAt(computerCode, selectedRowIndex, 1);
+			productView.model.setValueAt(computerName, selectedRowIndex, 2);
+			productView.model.setValueAt(quantity, selectedRowIndex, 3);
+			productView.model.setValueAt(cpuName, selectedRowIndex, 4);
+			productView.model.setValueAt(ram, selectedRowIndex, 2);
+			productView.model.setValueAt(screenCard, selectedRowIndex, 2);
+			productView.model.setValueAt(price, selectedRowIndex, 2);
+			productView.model.setValueAt(sourceCapacity, selectedRowIndex, 2);
+			productView.model.setValueAt(machineType, selectedRowIndex, 2);
+			productView.model.setValueAt(rom, selectedRowIndex, 2);
+			productView.model.setValueAt(screenSize, selectedRowIndex, 2);
+			productView.model.setValueAt(batteryCapacity, selectedRowIndex, 2);
+			productView.model.setValueAt(origin, selectedRowIndex, 2);
+		}
 		
 	}
 	public void clickCancelBtn() {
 		this.dispose();
 	}
+	
+	
 }

@@ -284,8 +284,7 @@ public class AddProductView extends JFrame {
 		Computer com = new Computer(computerCode, computerName, quantity, cpuName, ram, screenCard, price, sourceCapacity, machineType, rom, screenSize,
 				batteryCapacity, origin);
 		//back-end
-		ProductDAO productdao = new ProductDAO();
-		productdao.insert(com);
+		ProductDAO.getInstance().insert(com);
 		//front-end
 		String[] rowData = {computerCode, computerName, String.valueOf(quantity), cpuName, ram, screenCard, String.valueOf(price), sourceCapacity, machineType, rom,
 				String.valueOf(screenSize),	batteryCapacity, origin};

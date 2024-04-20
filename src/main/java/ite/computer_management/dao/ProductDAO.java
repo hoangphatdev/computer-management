@@ -26,7 +26,7 @@ public class ProductDAO implements DAOInterface<Computer> {
 	public static ProductDAO getInstance() {
 		return new ProductDAO();
 	}
-
+	
 	@Override
 	public int insert(Computer com) {
 		int check = 0;
