@@ -48,7 +48,7 @@ public class ProductView extends JPanel {
 	
 	public ProductView() {
 		ProductController productController = new ProductController(this);
-		this.setSize(1032,763);
+		this.setSize(1250,763);
 		setLayout(null);
 		
 		addLbl = new JLabel("ADD ");
@@ -88,7 +88,7 @@ public class ProductView extends JPanel {
 		add(seeDetailLbl);
 		
 		JScrollPane scrollPane = new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-		scrollPane.setBounds(10, 61, 1012, 671);
+		scrollPane.setBounds(10, 61, 1230, 671);
 		add(scrollPane);
 		//create table and fetch data from database
 		table = new JTable();

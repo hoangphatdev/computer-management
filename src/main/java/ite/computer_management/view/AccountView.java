@@ -15,6 +15,7 @@ import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -28,6 +29,8 @@ import ite.computer_management.model.Account;
 
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.RowFilter;
 
 public class AccountView extends JPanel {
 
@@ -39,6 +42,7 @@ public class AccountView extends JPanel {
 	public JLabel editLbl;
 	public JLabel exportExcelLbl;
 	public AccountDAO accountDAO;
+	public JTextField searchAreaTxt;
 
 	/**
 	 * Create the panel.
@@ -78,11 +82,7 @@ public class AccountView extends JPanel {
 		exportExcelLbl.addMouseListener(accountController);
 		add(exportExcelLbl);
 		
-		JLabel borderLbl = new JLabel("");
-		borderLbl.setBounds(460, 10, 562, 87);
-		Border border = BorderFactory.createLineBorder(Color.black);
-		borderLbl.setBorder(border);
-		add(borderLbl);
+		
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(29, 115, 966, 610);
@@ -94,6 +94,23 @@ public class AccountView extends JPanel {
 		accountDAO.selectAll();
 		
 		scrollPane.setViewportView(table);
+		
+		searchAreaTxt = new JTextField();
+		searchAreaTxt.setBounds(612, 40, 397, 44);
+		add(searchAreaTxt);
+		searchAreaTxt.addKeyListener(accountController);
+		searchAreaTxt.setColumns(10);
+		
+		
+		
+		JLabel searchTitleLbl = new JLabel("New label");
+		searchTitleLbl.setBounds(497, 36, 89, 27);
+		add(searchTitleLbl);
+		JLabel borderLbl = new JLabel("");
+		borderLbl.setBounds(460, 18, 562, 87);
+		Border border = BorderFactory.createLineBorder(Color.black);
+		borderLbl.setBorder(border);
+		add(borderLbl);
 	}
 	public void clickAddLbl() {
 		new AddAccountView(this);
@@ -177,5 +194,11 @@ public class AccountView extends JPanel {
 			}catch(IOException e) {
 				JOptionPane.showMessageDialog(null, e);
 			}
-}
+	}
+	public void enterSearch() {
+		DefaultTableModel demo = (DefaultTableModel) table.getModel();
+		TableRowSorter<DefaultTableModel> trs = new TableRowSorter<>(demo);
+		table.setRowSorter(trs);
+		trs.setRowFilter(RowFilter.regexFilter(searchAreaTxt.getText()));
+	}
 }

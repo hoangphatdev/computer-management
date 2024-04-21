@@ -1,11 +1,13 @@
 package ite.computer_management.controller;
 
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import ite.computer_management.view.AccountView;
 
-public class AccountController implements MouseListener {
+public class AccountController implements MouseListener, KeyListener {
 	AccountView accountView;
 	public AccountController(AccountView av) {
 		accountView = av;
@@ -45,6 +47,23 @@ public class AccountController implements MouseListener {
 	@Override
 	public void mouseExited(MouseEvent e) {
 		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void keyTyped(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void keyPressed(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void keyReleased(KeyEvent e) {
+		if(e.getSource() == accountView.searchAreaTxt) {
+			accountView.enterSearch();
+		}
 		
 	}
 
