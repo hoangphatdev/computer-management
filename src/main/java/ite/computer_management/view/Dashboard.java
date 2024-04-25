@@ -37,6 +37,8 @@ public class Dashboard extends JFrame {
 	public JLabel importProductNavLbl;
 	public JLabel statisticalNavLbl;
 	public JLabel supplierNavLbl;
+	public JLabel Imports_ProductNavLbl;
+	public JLabel Export_ProductNavLbl;
 
 
 	public Dashboard() {
@@ -95,7 +97,7 @@ public class Dashboard extends JFrame {
 		statisticalNavLbl.addMouseListener(dashboardController);
 		navPanel.add(statisticalNavLbl);
 		
-		 importProductNavLbl = new JLabel("Import Product");
+		importProductNavLbl = new JLabel("Import Product");
 		importProductNavLbl.setIcon(new ImageIcon("C:\\Users\\latru\\Desktop\\computer_management\\src\\main\\java\\ite\\computer_management\\img\\icons8-import-goods-filled-outline\\icons8-import-goods-32.png"));
 		importProductNavLbl.setOpaque(true);
 		importProductNavLbl.setFont(new Font("Lato", Font.BOLD, 15));
@@ -104,7 +106,7 @@ public class Dashboard extends JFrame {
 		importProductNavLbl.addMouseListener(dashboardController);
 		navPanel.add(importProductNavLbl);
 		
-		 exportProductNavLbl = new JLabel("Export Product");
+		exportProductNavLbl = new JLabel("Export Product");
 		exportProductNavLbl.setIcon(new ImageIcon("C:\\Users\\latru\\Desktop\\computer_management\\src\\main\\java\\ite\\computer_management\\img\\icons8-import-goods-flat\\icons8-import-goods-32.png"));
 		exportProductNavLbl.setOpaque(true);
 		exportProductNavLbl.setFont(new Font("Lato", Font.BOLD, 15));
@@ -158,6 +160,7 @@ public class Dashboard extends JFrame {
 		logOutNavLbl.addMouseListener(dashboardController);
 		navPanel.add(logOutNavLbl);
 		
+		
 		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPane.setBounds(254, 0, 1032, 783);
 		contentPane.add(tabbedPane);
@@ -168,7 +171,12 @@ public class Dashboard extends JFrame {
 		AccountView accountView = new AccountView();
 		tabbedPane.addTab("Account Mangement", accountView);
 		
-		
+		ImportsProductView ImportsProductView = new ImportsProductView();
+		tabbedPane.addTab("Imports Product", ImportsProductView);
+	
+		ExportProductView ExportProductView = new ExportProductView();
+		tabbedPane.addTab("Export Product", ExportProductView);
+	
 	}
 }
 

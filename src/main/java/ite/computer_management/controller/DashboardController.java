@@ -17,6 +17,10 @@ public class DashboardController implements MouseListener {
 			dashboard.tabbedPane.setSelectedIndex(0);  // SetSelectedIndex bat dau tu para 0;
 		}else if(e.getSource() == dashboard.accountNavLbl) {
 			dashboard.tabbedPane.setSelectedIndex(1);
+		} else if(e.getSource() == dashboard.importProductNavLbl) {
+			dashboard.tabbedPane.setSelectedIndex(2);
+		} else if(e.getSource() == dashboard.exportProductNavLbl) {
+			dashboard.tabbedPane.setSelectedIndex(3);
 		}
 		
 	}
