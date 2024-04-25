@@ -340,7 +340,7 @@ public class Dashboard extends JFrame {
 		this.setVisible(false);
 	}
 	public void clickLogoutNav() {
-		
+		this.setVisible(false);
 	}
 }
 
