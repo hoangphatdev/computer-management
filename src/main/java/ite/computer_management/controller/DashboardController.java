@@ -14,9 +14,27 @@ public class DashboardController implements MouseListener {
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		if(e.getSource() == dashboard.productNavLbl) {
-			dashboard.tabbedPane.setSelectedIndex(0);  // SetSelectedIndex bat dau tu para 0;
+			dashboard.clickProductNav();
 		}else if(e.getSource() == dashboard.accountNavLbl) {
-			dashboard.tabbedPane.setSelectedIndex(1);
+			dashboard.clickAccountNav();
+		}else if(e.getSource() == dashboard.supplierNavLbl) {
+			dashboard.clickSupplierNav();
+		}else if(e.getSource() == dashboard.importProductNavLbl) {
+			dashboard.clickImportProductNav();
+		}else if(e.getSource() == dashboard.importCouponNavLbl) {
+			dashboard.clickImportCouponNav();
+		}else if(e.getSource() == dashboard.exportCouponNavLbl) {
+			dashboard.clickExportCouponNav();
+		}else if(e.getSource() == dashboard.exportProductNavLbl) {
+			dashboard.clickExportProductNav();
+		}else if(e.getSource() == dashboard.accountNavLbl) {
+			dashboard.clickAccountNav();
+		}else if(e.getSource() == dashboard.statisticalNavLbl) {
+			dashboard.clickStatisticalNav();
+		}else if(e.getSource() == dashboard.userNavLbl) {
+			dashboard.clickUserNav();
+		}else if(e.getSource() == dashboard.logOutNavLbl) {
+			dashboard.clickLogoutNav();
 		}
 		
 	}
