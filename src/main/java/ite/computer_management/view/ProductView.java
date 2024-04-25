@@ -107,7 +107,7 @@ public class ProductView extends JPanel {
 		
 		excelBtn = new JButton("Export Excel");
 		excelBtn.setIcon(new ImageIcon("C:\\Users\\latru\\Desktop\\computer_management\\src\\main\\java\\ite\\computer_management\\img\\excel 20.png"));
-		excelBtn.setBounds(1032, 153, 190, 40);
+		excelBtn.setBounds(1032, 153, 167, 40);
 		excelBtn.setOpaque(true);
 		excelBtn.setBackground(new Color(214, 210, 199));
 		excelBtn.addMouseListener(productController);
@@ -115,7 +115,7 @@ public class ProductView extends JPanel {
 		
 		
 		JScrollPane scrollPane = new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-		scrollPane.setBounds(36, 243, 1186, 509);
+		scrollPane.setBounds(36, 243, 1163, 466);
 		add(scrollPane);
 		//create table and fetch data from database
 		table = new JTable();
@@ -151,7 +151,7 @@ public class ProductView extends JPanel {
 		
 		bgLbl = new JLabel("");
 		bgLbl.setBounds(0, 114, 1250, 676);
-		bgLbl.setBackground(new Color(224, 218, 218));
+		bgLbl.setBackground(new Color(191, 186, 166));
 		bgLbl.setOpaque(true);
 		add(bgLbl);
 		
@@ -227,7 +227,7 @@ public class ProductView extends JPanel {
 					wb.close();
 					out.close();
 					}
-				JOptionPane.showMessageDialog(null, "Export successfully ><");
+//				JOptionPane.showMessageDialog(null, "Export successfully ><");
 				}catch(FileNotFoundException e) {
 					JOptionPane.showMessageDialog(null, e);
 				}catch(IOException e) {

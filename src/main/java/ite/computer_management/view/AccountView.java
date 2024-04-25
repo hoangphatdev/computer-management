@@ -46,6 +46,8 @@ public class AccountView extends JPanel {
 	public AccountDAO accountDAO;
 	public JTextField searchAreaTxt;
 	public Dashboard dashboard;
+	private JLabel label;
+	private JLabel bgLbl;
 
 	/**
 	 * Create the panel.
@@ -99,7 +101,7 @@ public class AccountView extends JPanel {
 		exportExcelLbl.setIcon(new ImageIcon("C:\\Users\\latru\\Desktop\\computer_management\\src\\main\\java\\ite\\computer_management\\img\\excel 20.png"));
 		exportExcelLbl.setFont(new Font("Inter", Font.BOLD, 14));
 		exportExcelLbl.setHorizontalAlignment(SwingConstants.CENTER);
-		exportExcelLbl.setBounds(1026, 150, 200, 44);
+		exportExcelLbl.setBounds(1026, 150, 170, 44);
 		exportExcelLbl.setBorder(BorderFactory.createDashedBorder(Color.black));
 		exportExcelLbl.setBackground(new Color(214, 210, 199));
 		exportExcelLbl.setOpaque(true);
@@ -107,7 +109,7 @@ public class AccountView extends JPanel {
 		add(exportExcelLbl);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(29, 244, 1197, 481);
+		scrollPane.setBounds(29, 244, 1168, 481);
 		add(scrollPane);
 		//Create table and fetch data from database
 		table = new JTable();
@@ -151,6 +153,16 @@ public class AccountView extends JPanel {
 		titleLbl.setBackground(new Color(54, 51, 46));
 		titleLbl.setForeground(new Color(222, 173, 91));
 		add(titleLbl);
+		
+		label = new JLabel("New label");
+		label.setBounds(10, 150, 26, -6);
+		add(label);
+		
+		bgLbl = new JLabel("");
+		bgLbl.setBounds(0, 105, 1250, 671);
+		bgLbl.setOpaque(true);
+		bgLbl.setBackground( new Color(191, 186, 166));
+		add(bgLbl);
 	}
 	public void clickAddLbl() {
 		dashboard.setVisible(false);
