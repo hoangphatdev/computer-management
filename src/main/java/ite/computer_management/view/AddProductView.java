@@ -45,9 +45,11 @@ public class AddProductView extends JFrame {
 	public JLabel addLbl;
 	public JLabel cancelLbl;
 	public ProductView productView;
+	public Dashboard dashboard;
 	
-	public AddProductView(ProductView productView) {
+	public AddProductView(ProductView productView, Dashboard dashboard) {
 		this.productView = productView;
+		this.dashboard = dashboard;
 		AddProductController addProductController = new AddProductController(this);
 		
 		
@@ -199,7 +201,7 @@ public class AddProductView extends JFrame {
 		originTxt.setBounds(793, 362, 217, 41);
 		contentPane.add(originTxt);
 		
-		addLbl = new JLabel("ADD PRODUCT");
+		addLbl = new JLabel("ADD SUPPLIER");
 		addLbl.setBackground(Color.GREEN);
 		addLbl.setOpaque(true);
 		addLbl.setForeground(Color.white);
@@ -284,6 +286,7 @@ public class AddProductView extends JFrame {
 	}
 	public void clickCancelLbl() {
 		this.dispose();
+	    dashboard.setVisible(true);
 	}
 	public void clickRefreshLbl() {
 		computerNameTxt.setText(null);

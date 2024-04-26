@@ -56,7 +56,7 @@ public class EditProductView extends JFrame {
 	public JTextField machineTypeTxt;
 	public JTextField batteryCapacityTxt;
 	public JTextField originTxt;
-	public EditProductView(ProductView productView) {
+	public EditProductView(ProductView productView, Dashboard dashboard) {
 		this.productView = productView;
 		EditProductController editProductController = new EditProductController(this);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

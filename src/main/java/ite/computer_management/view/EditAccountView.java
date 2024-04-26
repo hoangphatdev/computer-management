@@ -27,7 +27,7 @@ public class EditAccountView extends JFrame {
 	public JButton cancelBtn;
 	public AccountView accountView;
 
-	public EditAccountView(AccountView accountView) {
+	public EditAccountView(AccountView accountView, Dashboard dashboard) {
 		this.accountView = accountView;
 		init();
 		this.setLocationRelativeTo(null);

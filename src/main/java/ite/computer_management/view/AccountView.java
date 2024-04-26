@@ -31,6 +31,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.RowFilter;
+import javax.swing.ImageIcon;
+import java.awt.Font;
 
 public class AccountView extends JPanel {
 
@@ -43,11 +45,15 @@ public class AccountView extends JPanel {
 	public JLabel exportExcelLbl;
 	public AccountDAO accountDAO;
 	public JTextField searchAreaTxt;
+	public Dashboard dashboard;
+	private JLabel label;
+	private JLabel bgLbl;
 
 	/**
 	 * Create the panel.
 	 */
-	public AccountView() {
+	public AccountView(Dashboard dashboard) {
+		this.dashboard = dashboard;
 		init();
 		this.setVisible(true);
 		
@@ -56,36 +62,54 @@ public class AccountView extends JPanel {
 		AccountController accountController = new AccountController(this);
 		accountDAO = new AccountDAO(this);
 		
-		this.setSize(1032,763);
+		this.setSize(1250,800);
 		setLayout(null);
-		addLbl = new JLabel("ADD");
+		addLbl = new JLabel("Add");
+		addLbl.setBorder(BorderFactory.createDashedBorder(Color.black));
+		addLbl.setBackground(new Color(214, 210, 199));
+		addLbl.setOpaque(true);
+		addLbl.setFont(new Font("Inter", Font.BOLD, 14));
+		addLbl.setIcon(new ImageIcon("C:\\Users\\latru\\Desktop\\computer_management\\src\\main\\java\\ite\\computer_management\\img\\add 20.png"));
 		addLbl.setHorizontalAlignment(SwingConstants.CENTER);
-		addLbl.setBounds(29, 26, 97, 33);
+		addLbl.setBounds(578, 150, 100, 44);
 		addLbl.addMouseListener(accountController);
 		add(addLbl);
 		
-		deleteLbl = new JLabel("DELETE");
+		deleteLbl = new JLabel("Delete");
+		deleteLbl.setFont(new Font("Inter", Font.BOLD, 14));
+		deleteLbl.setIcon(new ImageIcon("C:\\Users\\latru\\Desktop\\computer_management\\src\\main\\java\\ite\\computer_management\\img\\delete 20.png"));
 		deleteLbl.setHorizontalAlignment(SwingConstants.CENTER);
-		deleteLbl.setBounds(157, 26, 97, 33);
+		deleteLbl.setBounds(688, 150, 100, 44);
+		deleteLbl.setBorder(BorderFactory.createDashedBorder(Color.black) );
+		deleteLbl.setBackground(new Color(214, 210, 199));
+		deleteLbl.setOpaque(true);
 		deleteLbl.addMouseListener(accountController);
 		add(deleteLbl);
 		
-		editLbl = new JLabel("EDIT ");
+		editLbl = new JLabel("Edit");
+		editLbl.setFont(new Font("Inter", Font.BOLD, 14));
+		editLbl.setIcon(new ImageIcon("C:\\Users\\latru\\Desktop\\computer_management\\src\\main\\java\\ite\\computer_management\\img\\edit 20 (1).png"));
 		editLbl.setHorizontalAlignment(SwingConstants.CENTER);
-		editLbl.setBounds(300, 26, 97, 33);
+		editLbl.setBounds(798, 150, 100, 44);
+		editLbl.setBackground(new Color(214, 210, 199));
+		editLbl.setBorder(BorderFactory.createDashedBorder(Color.black));
+		editLbl.setOpaque(true);
 		editLbl.addMouseListener(accountController);
 		add(editLbl);
 		
-		exportExcelLbl = new JLabel("EXPORT");
+		exportExcelLbl = new JLabel("Export Excel");
+		exportExcelLbl.setIcon(new ImageIcon("C:\\Users\\latru\\Desktop\\computer_management\\src\\main\\java\\ite\\computer_management\\img\\excel 20.png"));
+		exportExcelLbl.setFont(new Font("Inter", Font.BOLD, 14));
 		exportExcelLbl.setHorizontalAlignment(SwingConstants.CENTER);
-		exportExcelLbl.setBounds(390, 26, 97, 33);
+		exportExcelLbl.setBounds(1026, 150, 170, 44);
+		exportExcelLbl.setBorder(BorderFactory.createDashedBorder(Color.black));
+		exportExcelLbl.setBackground(new Color(214, 210, 199));
+		exportExcelLbl.setOpaque(true);
 		exportExcelLbl.addMouseListener(accountController);
 		add(exportExcelLbl);
 		
-		
-		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(29, 115, 966, 610);
+		scrollPane.setBounds(29, 244, 1168, 481);
 		add(scrollPane);
 		//Create table and fetch data from database
 		table = new JTable();
@@ -96,24 +120,53 @@ public class AccountView extends JPanel {
 		scrollPane.setViewportView(table);
 		
 		searchAreaTxt = new JTextField();
-		searchAreaTxt.setBounds(612, 40, 397, 44);
+		searchAreaTxt.setBounds(130, 148, 397, 44);
 		add(searchAreaTxt);
 		searchAreaTxt.addKeyListener(accountController);
 		searchAreaTxt.setColumns(10);
 		
-		
-		
-		JLabel searchTitleLbl = new JLabel("New label");
-		searchTitleLbl.setBounds(497, 36, 89, 27);
+		JLabel searchTitleLbl = new JLabel("Search: ");
+		searchTitleLbl.setFont(new Font("Inter", Font.BOLD, 15));
+		searchTitleLbl.setBounds(41, 154, 60, 27);
 		add(searchTitleLbl);
 		JLabel borderLbl = new JLabel("");
-		borderLbl.setBounds(460, 18, 562, 87);
+		borderLbl.setBounds(29, 128, 522, 87);
 		Border border = BorderFactory.createLineBorder(Color.black);
 		borderLbl.setBorder(border);
 		add(borderLbl);
+		
+		JLabel seeDetailLbl = new JLabel("See Detail");
+		seeDetailLbl.setIcon(new ImageIcon("C:\\Users\\latru\\Desktop\\computer_management\\src\\main\\java\\ite\\computer_management\\img\\detail 20.png"));
+		seeDetailLbl.setOpaque(true);
+		seeDetailLbl.setHorizontalAlignment(SwingConstants.CENTER);
+		seeDetailLbl.setFont(new Font("Inter", Font.BOLD, 14));
+		seeDetailLbl.setBorder(BorderFactory.createDashedBorder(Color.black));
+		seeDetailLbl.setBackground(new Color(214, 210, 199));
+		seeDetailLbl.setBounds(908, 150, 97, 44);
+		add(seeDetailLbl);
+		
+		JLabel titleLbl = new JLabel("ACCOUNT MANAGEMENT");
+		titleLbl.setFont(new Font("Bakery", Font.PLAIN, 35));
+		titleLbl.setHorizontalAlignment(SwingConstants.CENTER);
+		titleLbl.setBounds(0, 0, 1250, 110);
+		titleLbl.setOpaque(true);
+		titleLbl.setBackground(new Color(54, 51, 46));
+		titleLbl.setForeground(new Color(222, 173, 91));
+		add(titleLbl);
+		
+		label = new JLabel("New label");
+		label.setBounds(10, 150, 26, -6);
+		add(label);
+		
+		bgLbl = new JLabel("");
+		bgLbl.setBounds(0, 105, 1250, 671);
+		bgLbl.setOpaque(true);
+		bgLbl.setBackground( new Color(191, 186, 166));
+		add(bgLbl);
 	}
 	public void clickAddLbl() {
-		new AddAccountView(this);
+		
+		new AddAccountView(this, dashboard);
 	}
 	public void clickDeleteLbl() {
 		int frontEndCheck = table.getSelectedRowCount();
@@ -139,6 +192,7 @@ public class AccountView extends JPanel {
 		
 	}
 	public void clickEditLbl() {
+	
 		int check = table.getSelectedRowCount();
 		int selectedRowIndex = table.getSelectedRow();
 		if(check <1) {
@@ -149,7 +203,7 @@ public class AccountView extends JPanel {
 			String password = (String) model.getValueAt(selectedRowIndex, 2);
 			String role = (String) model.getValueAt(selectedRowIndex, 3);
 			
-			EditAccountView editAccountView = new EditAccountView(this);
+			EditAccountView editAccountView = new EditAccountView(this, dashboard);
 			editAccountView.fullNameTxt.setText(fullName); 
 			editAccountView.userNameTxt.setText(userName);
 			editAccountView.passwordTxt.setText(password);

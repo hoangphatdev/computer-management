@@ -28,7 +28,7 @@ public class AddAccountView extends JFrame {
 	public JButton refreshBtn;
 	public AccountView accountView;
 
-	public AddAccountView(AccountView accountView) {
+	public AddAccountView(AccountView accountView, Dashboard dashboard) {
 		this.accountView = accountView;
 		init();
 		this.setLocationRelativeTo(null);

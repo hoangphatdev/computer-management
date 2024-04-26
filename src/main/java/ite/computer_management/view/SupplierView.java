@@ -13,8 +13,12 @@ import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 import ite.computer_management.controller.ProductController;
+import ite.computer_management.controller.SupplierController;
 import ite.computer_management.dao.ProductDAO;
+import ite.computer_management.dao.SupplierDAO;
 import ite.computer_management.model.Computer;
+import ite.computer_management.model.Supplier;
+
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.RowFilter;
@@ -29,7 +33,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
-public class ProductView extends JPanel {
+public class SupplierView extends JPanel {
 	public JLabel seeDetailLbl;
 	public JLabel deleteLbl;
 	public JLabel editLbl;
@@ -44,9 +48,9 @@ public class ProductView extends JPanel {
 	public Dashboard dashboard;
 	private JLabel bgLbl;
 	
-	public ProductView(Dashboard dashboard) {
+	public SupplierView(Dashboard dashboard) {
 		this.dashboard = dashboard;
-		ProductController productController = new ProductController(this);
+		SupplierController SupplierController = new SupplierController(this);
 		this.setSize(1250,800);
 		setLayout(null);
 		
@@ -57,7 +61,7 @@ public class ProductView extends JPanel {
 		
 		addLbl.setOpaque(true);
 		addLbl.setHorizontalAlignment(SwingConstants.CENTER);
-		addLbl.addMouseListener(productController);
+		addLbl.addMouseListener(SupplierController);
 		addLbl.setBorder(BorderFactory.createDashedBorder(Color.black));
 		addLbl.setBackground(new Color(214, 210, 199));
 		add(addLbl);
@@ -71,7 +75,7 @@ public class ProductView extends JPanel {
 		deleteLbl.setBounds(670, 152, 100, 40);
 		deleteLbl.setBorder(BorderFactory.createDashedBorder(Color.black) );
 		deleteLbl.setBackground(new Color(214, 210, 199));
-		deleteLbl.addMouseListener(productController);
+		deleteLbl.addMouseListener(SupplierController);
 		add(deleteLbl);
 		
 		editLbl = new JLabel("Edit");
@@ -82,7 +86,7 @@ public class ProductView extends JPanel {
 		editLbl.setBackground(new Color(214, 210, 199));
 		editLbl.setBorder(BorderFactory.createDashedBorder(Color.black));
 		editLbl.setBounds(791, 152, 100, 40);
-		editLbl.addMouseListener(productController);
+		editLbl.addMouseListener(SupplierController);
 		add(editLbl);
 		
 		seeDetailLbl = new JLabel("See Detail");
@@ -93,7 +97,7 @@ public class ProductView extends JPanel {
 		seeDetailLbl.setBorder(BorderFactory.createDashedBorder(Color.black));
 		seeDetailLbl.setBackground(new Color(214, 210, 199));
 		seeDetailLbl.setBounds(912, 152, 100, 40);
-		seeDetailLbl.addMouseListener(productController);
+		seeDetailLbl.addMouseListener(SupplierController);
 		add(seeDetailLbl);
 		
 		excelBtn = new JButton("Export Excel");
@@ -102,23 +106,24 @@ public class ProductView extends JPanel {
 		excelBtn.setBounds(1032, 153, 167, 40);
 		excelBtn.setOpaque(true);
 		excelBtn.setBackground(new Color(214, 210, 199));
-		excelBtn.addMouseListener(productController);
+		excelBtn.addMouseListener(SupplierController);
 		add(excelBtn);
 
 
 		JScrollPane scrollPane = new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-		scrollPane.setBounds(36, 243, 1186, 509);
+		scrollPane.setBounds(36, 243, 1004, 466);
 		scrollPane.setBounds(36, 243, 1163, 466);
 		add(scrollPane);
 		//create table and fetch data from database
 		table = new JTable();
 		model = (DefaultTableModel) table.getModel();
-		ProductDAO productDAO = new ProductDAO(this);
-		productDAO.selectAll();
+		SupplierDAO supplierDAO = new SupplierDAO(this);
+		//
+		supplierDAO.selectAll();
 		scrollPane.setViewportView(table);
 		
 		searchTxt = new JTextField();
-		searchTxt.addKeyListener(productController);
+		searchTxt.addKeyListener(SupplierController);
 		searchTxt.setBounds(105, 154, 407, 40);
 		add(searchTxt);
 		searchTxt.setColumns(10);
@@ -151,7 +156,7 @@ public class ProductView extends JPanel {
 
 	}
 	public void clickAddLbl() {
-		new AddProductView(this, dashboard);
+		new AddSupplierView(this, dashboard);
 	}
 	public void clickDeleteLbl() {
 		int check = table.getSelectedRowCount();
@@ -162,11 +167,12 @@ public class ProductView extends JPanel {
 		}else {
 			int confirm = JOptionPane.showConfirmDialog(null, "Are you sure?"); // yes:0, no:1
 			if(confirm == 0) {
-				String computerCode =  model.getValueAt(selectedRow, 1).toString(); // index cua gelValuAt bat dau tu 0
-				String computerName = model.getValueAt(selectedRow,0).toString();
-				Computer deleteProduct = new Computer();
-				deleteProduct.setComputerCode(computerCode);
-				int result = ProductDAO.getInstance().delete(deleteProduct);
+				String supplier_code =  model.getValueAt(selectedRow, 0).toString(); 
+				String supplier_name = model.getValueAt(selectedRow,1).toString();
+				
+				Supplier Delete = new Supplier();
+				Delete.setSupplier_Code(supplier_code);
+				int result = SupplierDAO.getInstance().delete(Delete);
 				System.out.println(result);
 				if(result == 1) {
 					model.removeRow(selectedRow);
@@ -181,15 +187,7 @@ public class ProductView extends JPanel {
 		table.setRowSorter(trs);
 		trs.setRowFilter(RowFilter.regexFilter(searchTxt.getText()));
 	}
-//	public void openFile(String file) {
-//		try {
-//			File path = new File(file);
-//			Desktop.getDesktop().open(path);
-//		} catch (IOException e) {
-//			JOptionPane.showMessageDialog(null,"Error: " + e);
-//		}
-//		
-//	}
+
 	public void clickExportExcel() {
 			try {
 				JFileChooser jFileChooser = new JFileChooser();
@@ -234,21 +232,11 @@ public class ProductView extends JPanel {
 		if(check <1) { 
 			JOptionPane.showMessageDialog(null, "Please select row to edit >< ");
 		}else {
-			EditProductView editProductView = new EditProductView(this, dashboard);
-			editProductView.computerNameTxt.setText( (String)model.getValueAt(selectedRowIndex,0) );
-			editProductView.computerCodeTxt.setText( (String)model.getValueAt(selectedRowIndex, 1) );
-			editProductView.quantityTxt.setText( (String)model.getValueAt(selectedRowIndex, 2) );
-			editProductView.cpuTxt.setText( (String)model.getValueAt(selectedRowIndex, 3) );
-			editProductView.ramTxt.setText( (String)model.getValueAt(selectedRowIndex, 4) );
-			editProductView.screenCardTxt.setText( (String)model.getValueAt(selectedRowIndex, 5) );
-			editProductView.priceTxt.setText( (String)model.getValueAt(selectedRowIndex, 6) );
-			editProductView.sourceCapacityTxt.setText( (String)model.getValueAt(selectedRowIndex, 7) );
-			editProductView.machineTypeTxt.setText( (String)model.getValueAt(selectedRowIndex, 8) );
-			editProductView.romTxt.setText( (String)model.getValueAt(selectedRowIndex, 9) );
-			editProductView.screenSizeTxt.setText( (String)model.getValueAt(selectedRowIndex, 10) );
-			editProductView.batteryCapacityTxt.setText( (String)model.getValueAt( selectedRowIndex, 11 ) );
-			editProductView.originTxt.setText( (String)model.getValueAt(selectedRowIndex, 12) );
-			
+			EditSupplierView editSupplierView = new EditSupplierView(this, dashboard);
+			editSupplierView.SupplierCodeTxt.setText( (String)model.getValueAt(selectedRowIndex,0) );
+			editSupplierView.SupplierNameTxt.setText( (String)model.getValueAt(selectedRowIndex, 1) );
+			editSupplierView.PhoneTxt.setText( (String)model.getValueAt(selectedRowIndex, 2) );
+			editSupplierView.AddressTxt.setText( (String)model.getValueAt(selectedRowIndex, 3) );	
 		}
 		
 	}
