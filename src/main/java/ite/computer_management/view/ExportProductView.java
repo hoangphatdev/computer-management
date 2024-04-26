@@ -17,7 +17,7 @@ import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
 
 import ite.computer_management.controller.Imports_productController;
-import ite.computer_management.dao.Import_Export_DAO;
+import ite.computer_management.dao.ImportDAO;
 
 import javax.swing.JComboBox;
 import java.awt.Color;
@@ -30,7 +30,7 @@ public class ExportProductView extends JPanel {
 	private JTable table_product;
 	private JTable table_1;
 	private JTextField textField_2;
-	private Import_Export_DAO Import_Delivery_DAO;
+	private ImportDAO Import_Delivery_DAO;
 
 	/**
 	 * Launch the application.
@@ -56,7 +56,7 @@ public class ExportProductView extends JPanel {
 		this.setVisible(true);
 	}
 	public void init() {
-		Import_Delivery_DAO = new Import_Export_DAO(this);
+		Import_Delivery_DAO = new ImportDAO(this);
 		Imports_productController Imports_productController = new Imports_productController(this);
 		
 		this.setSize(1032,763);

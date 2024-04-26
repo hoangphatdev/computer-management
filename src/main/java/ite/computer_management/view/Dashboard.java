@@ -182,7 +182,7 @@ public class Dashboard extends JFrame {
 		
 		
 		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane.setBounds(254, 0, 1032, 783);
+		tabbedPane.setBounds(254, 0, 1220, 783);
 		contentPane.add(tabbedPane);
 		
 		ProductView productView = new ProductView(this);
@@ -245,7 +245,7 @@ public class Dashboard extends JFrame {
 		importProductNavLbl.setBackground(new Color(236, 237, 221));
 		importProductNavLbl.setForeground(new Color(201, 111, 130));
 		this.tabbedPane.setSelectedIndex(2);
-		
+	
 		productNavLbl.setBackground(new Color(97, 96, 83) );
 		productNavLbl.setForeground(new Color(242, 230, 87));
 		supplierNavLbl.setBackground(new Color(97, 96, 83));

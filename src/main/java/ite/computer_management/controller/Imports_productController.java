@@ -18,7 +18,15 @@ public class Imports_productController implements MouseListener, KeyListener{
 	public Imports_productController(ExportProductView DPV) {
 		DeliveryView = DPV;
 	}
-
+	
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		if(e.getSource() == Imports.btn_accept) {
+			Imports.addProductActionPerformed(this);
+		}
+		
+	}
+	
 	@Override
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
@@ -37,11 +45,6 @@ public class Imports_productController implements MouseListener, KeyListener{
 		
 	}
 
-	@Override
-	public void mouseClicked(MouseEvent e) {
-		
-		
-	}
 
 	@Override
 	public void mousePressed(MouseEvent e) {

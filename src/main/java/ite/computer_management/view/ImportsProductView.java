@@ -7,9 +7,15 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
+import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.Connection;
+import java.util.List;
+import java.util.Random;
 
 import javax.swing.JButton;
 import javax.swing.Box;
@@ -20,7 +26,8 @@ import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
 
 import ite.computer_management.controller.Imports_productController;
-import ite.computer_management.dao.Import_Export_DAO;
+import ite.computer_management.dao.ImportDAO;
+import ite.computer_management.database.ConnectDatabase;
 
 import javax.swing.JComboBox;
 import java.awt.Color;
@@ -30,11 +37,12 @@ public class ImportsProductView extends JPanel {
 	private static final long serialVersionUID = 1L;
 	public JTextField TF_Sreach;
 	public JTextField TF_Form;
-	public JTextField TF_Creator;
 	public JTable table_Product;
 	public JTable table_Imports;
 	public JTextField TF_Quantity;
-	public Import_Export_DAO Import_Delivery_DAO;
+	public ImportDAO Import_Delivery_DAO;
+	private JLabel lblQuantity_1;
+	public static JButton btn_accept;
 
 	/**
 	 * Launch the application.
@@ -62,7 +70,7 @@ public class ImportsProductView extends JPanel {
 		this.setVisible(true);
 	}
 	public void init() {
-		Import_Delivery_DAO = new Import_Export_DAO(this);
+		Import_Delivery_DAO = new ImportDAO(this);
 		Imports_productController Imports_productController = new Imports_productController(this);
 		
 		this.setSize(1032,763);
@@ -106,12 +114,8 @@ public class ImportsProductView extends JPanel {
 		TF_Form = new JTextField();
 		TF_Form.setColumns(10);
 		TF_Form.setBounds(651, 25, 349, 28);
+		TF_Form.setEditable(false);
 		add(TF_Form);
-		
-		TF_Creator = new JTextField();
-		TF_Creator.setColumns(10);
-		TF_Creator.setBounds(651, 109, 349, 28);
-		add(TF_Creator);
 		
 		table_Product = new JTable();
 		table_Product.setModel(new DefaultTableModel(
@@ -180,12 +184,13 @@ public class ImportsProductView extends JPanel {
 		TF_Quantity.setBounds(163, 573, 132, 28);
 		add(TF_Quantity);
 		
-		JButton btn_accept = new JButton("Accept");
+		btn_accept = new JButton("Accept");
 		btn_accept.setBackground(Color.LIGHT_GRAY);
 		btn_accept.setForeground(new Color(0, 0, 0));
 		btn_accept.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btn_accept.setBounds(306, 573, 85, 28);
 		add(btn_accept);
+		btn_accept.addMouseListener(Imports_productController);
 		
 		JButton btn_Excel = new JButton("Excel");
 		btn_Excel.setBackground(Color.LIGHT_GRAY);
@@ -214,10 +219,10 @@ public class ImportsProductView extends JPanel {
 		lblTotalAmount.setBounds(508, 548, 181, 28);
 		add(lblTotalAmount);
 		
-		JLabel lblQuantity_1 = new JLabel("0Đ");
+		lblQuantity_1 = new JLabel("0Đ");
 		lblQuantity_1.setForeground(Color.RED);
-		lblQuantity_1.setFont(new Font("Tahoma", Font.BOLD, 29));
-		lblQuantity_1.setBounds(681, 539, 90, 41);
+		lblQuantity_1.setFont(new Font("Tahoma", Font.BOLD, 25));
+		lblQuantity_1.setBounds(681, 539, 341, 41);
 		add(lblQuantity_1);
 		
 		JButton btn_ImportsProduct = new JButton("Imports product");
@@ -228,9 +233,88 @@ public class ImportsProductView extends JPanel {
 		add(btn_ImportsProduct);
 		
 		Import_Delivery_DAO.display(table_Product);
-	}
-	public void Add_TableProduct() {
 		
+		JComboBox Combo_Creator = new JComboBox();
+		Combo_Creator.setBounds(651, 111, 349, 28);
+		add(Combo_Creator);
+		
+		// lấy dữ liệu từ bảng supplier trong database để hiện thị trong Jcombobox
+		ImportDAO importDAO = new ImportDAO();
+		List<String> supplierNames = importDAO.getSupplierNames();
+		for (String supplierName : supplierNames) {
+		    Combo_Supplier.addItem(supplierName);
+		}
+
+		// lấy dữ liệu từ bảng account trong database để hiện thị trong Jcombobox
+		List<String> userName = importDAO.getUserName();
+		for (String userNames : userName) {
+		    Combo_Creator.addItem(userNames);
+		}
+		
+		setRandomFormValue();
 	}
+	public void addProductActionPerformed(Imports_productController imports_productController) {
+	    int selectedRow = table_Product.getSelectedRow();
+	    if (selectedRow == -1) {
+	        JOptionPane.showMessageDialog(this, "Vui lòng chọn sản phẩm để nhập hàng!");
+	    } else {
+	        try {
+	            int quantity = Integer.parseInt(TF_Quantity.getText().trim());
+	            if (quantity > 0) {
+	                String productCode = table_Product.getValueAt(selectedRow, 1).toString();
+	                String productName = table_Product.getValueAt(selectedRow, 2).toString();
+	                // Thực hiện truy vấn để lấy thông tin còn lại từ cơ sở dữ liệu
+	                String[] productInfo = Import_Delivery_DAO.getProductInfo(productCode);
+	                if (productInfo != null) {
+	                    DefaultTableModel modelImports = (DefaultTableModel) table_Imports.getModel();
+	                    modelImports.addRow(new Object[] { productInfo[0], productCode, productName, quantity, productInfo[1], productInfo[2] });
+	                    // Xóa hàng đã chọn khỏi bảng table_Product
+	                    DefaultTableModel modelProduct = (DefaultTableModel) table_Product.getModel();
+	                    modelProduct.removeRow(selectedRow);
+	                    // Cập nhật lại tổng số tiền
+	                    updateTotalAmount();
+	                } else {
+	                    JOptionPane.showMessageDialog(this, "Không tìm thấy thông tin sản phẩm trong cơ sở dữ liệu!");
+	                }
+	            } else {
+	                JOptionPane.showMessageDialog(this, "Vui lòng nhập số lượng lớn hơn 0");
+	            }
+	        } catch (NumberFormatException e) {
+	            JOptionPane.showMessageDialog(this, "Vui lòng nhập số lượng ở dạng số nguyên!");
+	        }
+	    }
+	}
+
+	private void updateTotalAmount() {
+	    DefaultTableModel modelImports = (DefaultTableModel) table_Imports.getModel();
+	    double totalAmount = 0;
+	    for (int i = 0; i < modelImports.getRowCount(); i++) {
+	        double price = Double.parseDouble(modelImports.getValueAt(i, 4).toString());
+	        int quantity = Integer.parseInt(modelImports.getValueAt(i, 3).toString());
+	        totalAmount += price * quantity;
+	    }
+	    lblQuantity_1.setText(String.valueOf(totalAmount) + "Đ");
+	}
+
 	
+	 public void setRandomFormValue() {
+	        String randomFormValue = generateRandomCode();
+	        TF_Form.setText(randomFormValue);
+	    }
+
+	    // Phương thức để sinh mã ngẫu nhiên
+	    private String generateRandomCode() {
+	        String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+	        StringBuilder sb = new StringBuilder();
+	        Random random = new Random();
+	        for (int i = 0; i < 2; i++) {
+	            char randomChar = chars.charAt(random.nextInt(chars.length()));
+	            sb.append(randomChar);
+	        }
+	        for (int i = 0; i < 4; i++) {
+	            int randomDigit = random.nextInt(10);
+	            sb.append(randomDigit);
+	        }
+	        return sb.toString();
+	    }
 }
