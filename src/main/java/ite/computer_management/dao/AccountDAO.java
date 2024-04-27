@@ -32,7 +32,7 @@ public class AccountDAO implements DAOInterface<Account> {
 	public int insert(Account account) {
 		int check = 0;
 		Connection connect = ConnectDatabase.getConnection();
-		String sql = "INSERT INTO computer_management.account VALUE(?,?,?,?)";
+		String sql = "INSERT INTO account VALUE(?,?,?,?)";
 		try {
 			PreparedStatement ps = connect.prepareStatement(sql);
 			ps.setString(1, account.getFullName());    // PreparedStatement: first parameter is 1;
@@ -53,7 +53,7 @@ public class AccountDAO implements DAOInterface<Account> {
 	public int delete(Account account) {
 		int check = 0;
 		Connection connect = ConnectDatabase.getConnection();
-		String sql = "DELETE FROM computer_management.account WHERE userName=?";
+		String sql = "DELETE FROM account WHERE userName=?";
 		try {
 			PreparedStatement ps = connect.prepareStatement(sql);
 			ps.setString(1, account.getUserName());
@@ -70,7 +70,7 @@ public class AccountDAO implements DAOInterface<Account> {
 	public int update(Account account, String condition) {
 		int check = 0;
 		Connection connect = ConnectDatabase.getConnection();
-		String sql = "UPDATE computer_management.account SET fullName=?, userName=?, password=?, role=? WHERE userName=?";
+		String sql = "UPDATE account SET fullName=?, userName=?, password=?, role=? WHERE userName=?";
 		try {
 			PreparedStatement ps = connect.prepareStatement(sql);
 			ps.setString(1, account.getFullName());
@@ -95,7 +95,7 @@ public class AccountDAO implements DAOInterface<Account> {
 	@Override
 	public ArrayList selectAll() {
 		Connection connect = ConnectDatabase.getConnection();
-		String sql = "SELECT * FROM computer_management.account";
+		String sql = "SELECT * FROM account";
 		try {
 			Statement state = connect.createStatement();
 			ResultSet rs =  state.executeQuery(sql);

@@ -33,7 +33,7 @@ public class ProductDAO implements DAOInterface<Computer> {
 		int check = 0;
 		Connection connect = ConnectDatabase.getInstance().getConnection();
 		try {
-			String sql = "INSERT INTO computer_management.computer(computer_Code, computer_Name, quantity, cpu_Name, ram, screen_Card, price, source_Capacity, "
+			String sql = "INSERT INTO computer(computer_Code, computer_Name, quantity, cpu_Name, ram, screen_Card, price, source_Capacity, "
 					+ "machine_Type, rom, screen_Size, battery_Capacity, origin)" + " VALUE"		
 					+ "(?,?,?,?,?,?,?,?,?,?,?,?,?)";
 			PreparedStatement ps = connect.prepareStatement(sql);
@@ -67,7 +67,7 @@ public class ProductDAO implements DAOInterface<Computer> {
 	public int delete(Computer t) {
 		int check = 0;
 		Connection connect = ConnectDatabase.getInstance().getConnection();
-		String sql = "DELETE FROM computer_management.computer WHERE computer_code=?";
+		String sql = "DELETE FROM computer WHERE computer_code=?";
 		try {
 			PreparedStatement ps = connect.prepareStatement(sql);
 			ps.setString(1, t.getComputerCode());
@@ -87,7 +87,7 @@ public class ProductDAO implements DAOInterface<Computer> {
 	public int update(Computer com, String condition) {
 		int check = 0;
 		Connection connect = ConnectDatabase.getInstance().getConnection();
-		String sql = "UPDATE computer_management.computer SET computer_Code=?, computer_Name=?, quantity=?, cpu_Name=?, ram=?, screen_Card=?, price=?,"
+		String sql = "UPDATE computer SET computer_Code=?, computer_Name=?, quantity=?, cpu_Name=?, ram=?, screen_Card=?, price=?,"
 				+ "source_Capacity=?, machine_Type=?, rom=?, screen_Size=?, battery_Capacity=?, origin=?" + " WHERE computer_Code=?";
 		try {
 			PreparedStatement ps = connect.prepareStatement(sql);
@@ -122,7 +122,7 @@ public class ProductDAO implements DAOInterface<Computer> {
 		
 		try {
 			Statement st = connect.createStatement();
-			String sql = "SELECT * FROM computer_management.computer";
+			String sql = "SELECT * FROM computer";
 			ResultSet rs = st.executeQuery(sql);
 			ResultSetMetaData rsmd = rs.getMetaData();
 		
