@@ -5,29 +5,30 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-import ite.computer_management.view.ExportProductView;
-import ite.computer_management.view.ImportsProductView;
+import ite.computer_management.view.ImportCouponView;
 
-public class Imports_productController implements MouseListener, KeyListener{
-	ImportsProductView Imports;
-	ExportProductView DeliveryView;
+public class ImportsCouponController implements MouseListener, KeyListener{
+	ImportCouponView imporCouponView;
 	
-	public Imports_productController(ImportsProductView IPV) {
-		Imports = IPV;
-	}
-	public Imports_productController(ExportProductView DPV) {
-		DeliveryView = DPV;
+	public ImportsCouponController(ImportCouponView ICV) {
+		imporCouponView = ICV;
 	}
 	
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		if(e.getSource() == Imports.btn_accept) {
-			Imports.addProductActionPerformed(this);
-		} else if(e.getSource() == Imports.btn_DeleteProduct) {
-			Imports.delete_toTableImport();
+		if(e.getSource() == imporCouponView.deleteLbl) {
+			imporCouponView.clickDeleteLbl();
+		}else if(e.getSource() == imporCouponView.editLbl) {
+			imporCouponView.clickEditBtn();
+		}else if(e.getSource() == imporCouponView.seeDetailLbl) {
+			
+		}else if(e.getSource() == imporCouponView.excelBtn) {
+			imporCouponView.clickExportExcel();
 		}
 		
 	}
+
+	
 	
 	@Override
 	public void keyTyped(KeyEvent e) {
@@ -46,8 +47,6 @@ public class Imports_productController implements MouseListener, KeyListener{
 		// TODO Auto-generated method stub
 		
 	}
-
-
 	@Override
 	public void mousePressed(MouseEvent e) {
 		// TODO Auto-generated method stub

@@ -182,7 +182,7 @@ public class Dashboard extends JFrame {
 		
 		
 		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane.setBounds(254, 0, 1220, 783);
+		tabbedPane.setBounds(254, -20, 1220, 783);
 		contentPane.add(tabbedPane);
 		
 		ProductView productView = new ProductView(this);
@@ -199,6 +199,9 @@ public class Dashboard extends JFrame {
 	
 		SupplierView supplierView = new SupplierView(this);
 		tabbedPane.addTab("Supplier manegement", supplierView );
+		
+		ImportCouponView importCouponView = new ImportCouponView(this);
+		tabbedPane.addTab("Import coupon", importCouponView);
 		
 	}
 	public void clickSupplierNav() {
@@ -265,6 +268,7 @@ public class Dashboard extends JFrame {
 	public void clickImportCouponNav() {
 		importCouponNavLbl.setBackground( new Color(236, 237, 221) );
 		importCouponNavLbl.setForeground( new Color(112, 230, 94) );
+		this.tabbedPane.setSelectedIndex(5);
 		
 		productNavLbl.setBackground(new Color(97, 96, 83) );
 		productNavLbl.setForeground(new Color(242, 230, 87));
@@ -366,4 +370,3 @@ public class Dashboard extends JFrame {
 		
 	}
 }
-
