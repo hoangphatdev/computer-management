@@ -27,13 +27,13 @@ public class DashboardController implements MouseListener {
 			dashboard.clickExportCouponNav();
 		}else if(e.getSource() == dashboard.exportProductNavLbl) {
 			dashboard.clickExportProductNav();
-<<<<<<< HEAD
+
 		}else if(e.getSource() == dashboard.accountNavLbl) {
 			dashboard.clickAccountNav();
 		}else if(e.getSource() == dashboard.statisticalNavLbl) {
-=======
+
 		} else if(e.getSource() == dashboard.statisticalNavLbl) {
->>>>>>> d02a5a242b2720362c78b64a1e7c3c3309f59816
+
 			dashboard.clickStatisticalNav();
 		}else if(e.getSource() == dashboard.userNavLbl) {
 			dashboard.clickUserNav();
